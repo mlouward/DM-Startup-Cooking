@@ -1,0 +1,45 @@
+﻿<Window x:Class="WPF_Cooking.Paiement"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_Cooking"
+        mc:Ignorable="d" Height="500" Width="900" FontSize="15"
+        WindowStartupLocation="CenterScreen" Foreground="#FF151A61" Title="Recettes"
+        FontFamily="Raleway" FontWeight="DemiBold" Icon="Resources/logo.png">
+
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Margin="130, 0" Source="Resources\salad.jpeg"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="NomPlat"
+                   VerticalAlignment="Center" HorizontalAlignment="Left" Width="200" TextAlignment="Center"/>
+        <TextBlock Name="TextBlockNbPlats" Grid.Row="3" Grid.Column="0" Text="xNbPlats"
+                   VerticalAlignment="Center" HorizontalAlignment="Right" Width="200" TextAlignment="Center"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Prix (cook)" FontSize="24"
+                   VerticalAlignment="Center" Name="TextBlockPrix" HorizontalAlignment="Center" TextAlignment="Center"/>
+
+
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="Solde Cook : " FontSize="24" Name="TextBlockSolde"
+                   VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" TextAlignment="Center"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="- *Prix*" FontSize="20" Name="TextBlockPrixBis"
+                   VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" TextAlignment="Center"/>
+        <Line Grid.Row="1" Grid.Column="1"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="Solde restant" FontSize="20" Name="TextBlockSoldeRestant"
+                   VerticalAlignment="Center" HorizontalAlignment="Center" Width="200" TextAlignment="Center"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Margin="20">
+            <Button Content="Payer" Height="30" Width ="120" VerticalAlignment="Center" Margin="37" Click="ButtonPayer_Click"/>
+            <Button Content="Recharger" Height="30" Width ="120" Margin="37" Click="ButtonRecharger_Click"/>
+        </StackPanel>
+    </Grid>
+
+</Window>
