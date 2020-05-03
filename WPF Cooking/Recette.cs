@@ -14,6 +14,7 @@ namespace WPF_Cooking
         public string Descriptif { get; set; }
         public decimal PrixVente { get; set; }
         public int Popularite { get; set; }
+        public int Remuneration { get; set; }
         public Recette(string nom, string type, string descriptif, decimal prixVente, int popularite)
         {
             Nom = nom;
@@ -21,6 +22,7 @@ namespace WPF_Cooking
             Descriptif = descriptif;
             PrixVente = prixVente;
             Popularite = popularite;
+            Remuneration = popularite < 50 ? 2 : 4;
         }
         public override string ToString()
         {

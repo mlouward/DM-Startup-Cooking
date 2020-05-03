@@ -7,7 +7,7 @@
         MinHeight="300" MinWidth="580"
         mc:Ignorable="d" Height="500" Width="900" FontSize="16"
         WindowStartupLocation="CenterScreen" Foreground="#FF151A61" Title="Recettes"
-        FontFamily="Raleway" FontWeight="DemiBold" Icon="Resources/logo.png">
+        FontFamily="Raleway" FontWeight="DemiBold" Icon="Resources/logo.png" Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="6*" />

@@ -11,11 +11,14 @@ namespace WPF_Cooking
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static Personne currentUser = new Personne();
+        public static ListeRecettes listeRecettes = new ListeRecettes();
+        public static Client currentUser = new Client();
 
         public MainWindow()
         {
             InitializeComponent();
+            TextBoxMail.Text = "azerty@gmail.com";
+            PasswordBoxMdp.Password = "Maxime";
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -99,7 +102,7 @@ namespace WPF_Cooking
                 {
                     currentUser.Mail = TextBoxMail.Text;
                     currentUser.Solde = solde;
-                    ListeRecettes listeRecettes = new ListeRecettes();
+                    
                     listeRecettes.Show();
                 }
                 else if (resultatStatut == "cdr")

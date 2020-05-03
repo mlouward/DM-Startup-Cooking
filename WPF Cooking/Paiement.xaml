@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPF_Cooking"
         mc:Ignorable="d" Height="500" Width="900" FontSize="15"
         WindowStartupLocation="CenterScreen" Foreground="#FF151A61" Title="Recettes"
-        FontFamily="Raleway" FontWeight="DemiBold" Icon="Resources/logo.png">
+        FontFamily="Raleway" FontWeight="DemiBold" Icon="Resources/logo.png" Closing="Window_Closing">
 
     <Grid Margin="20">
         <Grid.ColumnDefinitions>

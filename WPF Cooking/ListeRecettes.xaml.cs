@@ -100,5 +100,10 @@ namespace WPF_Cooking
                 paiement.Show();
             }
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Hide();
+        }
     }
 }

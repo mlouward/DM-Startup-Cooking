@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WPF_Cooking
 {
-    public class Personne
+    public class Client
     {
         public string Mail { get; set; }
         public string Nom { get; set; }
@@ -14,7 +14,7 @@ namespace WPF_Cooking
         public string Password { get; set; }
         public decimal Solde { get; set; }
         public string Statut { get; set; }
-        public Personne(string mail, string nom, string numTel, string password, decimal solde, string statut)
+        public Client(string mail, string nom, string numTel, string password, decimal solde, string statut)
         {
             Mail = mail;
             Nom = nom;
@@ -24,7 +24,7 @@ namespace WPF_Cooking
             Statut = statut;
         }
 
-        public Personne()
+        public Client()
         {
         }
     }

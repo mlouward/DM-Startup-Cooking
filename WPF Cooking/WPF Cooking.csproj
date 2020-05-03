@@ -114,7 +114,7 @@
     <Compile Include="Paiement.xaml.cs">
       <DependentUpon>Paiement.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Personne.cs" />
+    <Compile Include="Client.cs" />
     <Compile Include="Produit.cs" />
     <Compile Include="Recette.cs" />
     <Compile Include="SignUpPage.xaml.cs">
