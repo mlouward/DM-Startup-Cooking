@@ -21,13 +21,14 @@ namespace WPF_Cooking
 
     public partial class ListeRecettes : Window
     {
-
         static Dictionary<string, int> recettesNoms = new Dictionary<string, int>();
         static List<Recette> listeRecettes = new List<Recette>();
+        public static Dictionary<Recette, int> compteRecettes = new Dictionary<Recette, int>();
         public ListeRecettes()
         {
-            recettesNoms.Clear(); //Remet le panier à 0
             InitializeComponent();
+            recettesNoms.Clear(); //Remet le panier à 0.
+            compteRecettes.Clear(); //Remet le compte des recettes à 0.
             List<Recette> recettes = new List<Recette>();
             string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
 
@@ -58,7 +59,6 @@ namespace WPF_Cooking
 
         private void Commander_Click(object sender, RoutedEventArgs e)
         {
-            List<string> panier = new List<string>();
             Paiement paiement = new Paiement();
             paiement.Show();
         }
@@ -71,11 +71,13 @@ namespace WPF_Cooking
                 if (recettesNoms.ContainsKey(recette.Nom) && recettesNoms[recette.Nom] < 20)
                 {
                     recettesNoms[recette.Nom]++;
+                    compteRecettes[recette]++;
                 }
                 else
                 {
                     listeRecettes.Add(recette);
                     recettesNoms.Add(recette.Nom, 1);
+                    compteRecettes.Add(recette, 1);
                 }
             }
             lvRecap.ItemsSource = null;
@@ -95,21 +97,16 @@ namespace WPF_Cooking
                 {
                     recettesNoms.Remove(index);
                     listeRecettes.Remove(listeRecettes.Find(x => x.Nom == index));
+                    compteRecettes.Remove(r);
                 }
                 else
+                {
                     recettesNoms[index]--;
+                    compteRecettes[r]--;
+                }
                 lvRecap.ItemsSource = null;
                 lvRecap.ItemsSource = recettesNoms;
             }
-        }
-
-        private void textePrix_TargetUpdated(object sender, DataTransferEventArgs e)
-        {
-            MessageBox.Show("cc");
-            if (int.Parse(textePrix.Text) < 2)
-                change.Text = "cook";
-            else
-                change.Text = "cooks";
         }
     }
 }

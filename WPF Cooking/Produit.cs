@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WPF_Cooking
 {
-    class Produit
+    public class Produit
     {
         public string Nom { get; set; }
         public string Categorie { get; set; }

@@ -23,26 +23,31 @@ namespace WPF_Cooking
         public Paiement()
         {
             InitializeComponent();
-            string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
+            //string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
 
-            MySqlConnection connection = new MySqlConnection(connectionString);
-            connection.Open();
-            MySqlCommand command = connection.CreateCommand();
-            command.CommandText = "Select Prix_recette From recette where NomRecette_Recette= \"nom_recette\"";
+            //MySqlConnection connection = new MySqlConnection(connectionString);
+            //connection.Open();
+            //MySqlCommand command = connection.CreateCommand();
+            //command.CommandText = "Select Prix_recette From recette where NomRecette_Recette= \"nom_recette\"";
 
-            MySqlDataReader reader;
-            reader = command.ExecuteReader();
-            int prix = int.Parse(reader.GetValue(0).ToString());
-            command.CommandText = "Select solde From client";
-            reader = command.ExecuteReader();
-            int solde = int.Parse(reader.GetValue(0).ToString());
-            connection.Close();
+            //MySqlDataReader reader;
+            //reader = command.ExecuteReader();
+            //int prix = int.Parse(reader.GetValue(0).ToString());
+            //command.CommandText = "Select solde From client";
+            //reader = command.ExecuteReader();
+            //int solde = int.Parse(reader.GetValue(0).ToString());
+            //connection.Close();
 
-            TextBlockPrix.Text += " " + prix;
-            TextBlockSolde.Text += " " + solde;
-            TextBlockPrixBis.Text += " " + int.Parse(TextBlockNbPlats.Text) * prix;
-            TextBlockSoldeRestant.Text += " " + (solde - int.Parse(TextBlockNbPlats.Text) * prix);
+            //TextBlockPrix.Text += " " + prix;
+            //TextBlockSolde.Text += " " + solde;
+            //TextBlockPrixBis.Text += " " + int.Parse(TextBlockNbPlats.Text) * prix;
+            //TextBlockSoldeRestant.Text += " " + (solde - int.Parse(TextBlockNbPlats.Text) * prix);
 
+            var recap = ListeRecettes.compteRecettes; //On récupère la liste des recettes dans le panier
+            foreach (var item in recap)
+            {
+                MessageBox.Show(item.ToString());
+            }
         }
 
         private void ButtonPayer_Click(object sender, RoutedEventArgs e)
