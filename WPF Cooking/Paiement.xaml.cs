@@ -122,12 +122,15 @@ namespace WPF_Cooking
                     {
                         ingredients.Add(rdr.GetString(0));
                     }
+                    rdr.Close();
                     foreach (string i in ingredients)
                     {
-                        command5.CommandText = $"select QttProduit_Compose from compose where NomProduit_Produit={i}";
+                        command5.CommandText = $"select QttProduit_Compose from compose where NomProduit_Produit=\"{i}\"";
                         rdr = command5.ExecuteReader();
+                        rdr.Read();
                         int qtt = rdr.GetInt32(0);
-                        command5.CommandText = $"update produit set StockActuel_Produit = StockActuel_Produit - {qtt}";
+                        rdr.Close();
+                        command5.CommandText = $"update produit set StockActuel_Produit = StockActuel_Produit - {qtt} where NomProduit_Produit=\"{i}\"";
                         command5.ExecuteNonQuery();
                         //TODO : Si qtté < 0 : Empêcher la commande?
                     }
