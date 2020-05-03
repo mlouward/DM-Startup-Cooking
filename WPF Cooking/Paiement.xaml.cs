@@ -1,17 +1,6 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using MySql.Data.MySqlClient;
 
 namespace WPF_Cooking
 {
@@ -20,9 +9,12 @@ namespace WPF_Cooking
     /// </summary>
     public partial class Paiement : Window
     {
+        decimal prixTot = 0;
+        decimal soldeRestant = 0;
         public Paiement()
         {
             InitializeComponent();
+
             //string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
 
             //MySqlConnection connection = new MySqlConnection(connectionString);
@@ -38,53 +30,40 @@ namespace WPF_Cooking
             //int solde = int.Parse(reader.GetValue(0).ToString());
             //connection.Close();
 
-            //TextBlockPrix.Text += " " + prix;
-            //TextBlockSolde.Text += " " + solde;
-            //TextBlockPrixBis.Text += " " + int.Parse(TextBlockNbPlats.Text) * prix;
-            //TextBlockSoldeRestant.Text += " " + (solde - int.Parse(TextBlockNbPlats.Text) * prix);
-
-            var recap = ListeRecettes.compteRecettes; //On récupère la liste des recettes dans le panier
-            foreach (var item in recap)
+            Dictionary<Recette, int> recap = ListeRecettes.compteRecettes; //On récupère la liste des recettes dans le panier et leur nombre.
+            listBoxRecap.ItemsSource = recap;
+            foreach (KeyValuePair<Recette, int> recette in recap)
             {
-                MessageBox.Show(item.ToString());
+                prixTot += recette.Key.PrixVente * recette.Value;
             }
+            TextBlockPrix.Text = $"{prixTot} cook(s)";
+            TextBlockSolde.Text = $"{MainWindow.currentUser.Solde} cook(s)";
+            TextBlockPrixBis.Text = $"- {prixTot} cook(s)";
+            soldeRestant = MainWindow.currentUser.Solde - prixTot;
+            TextBlockSoldeRestant.Text = $"Solde restant : {soldeRestant} cook(s)";
         }
 
         private void ButtonPayer_Click(object sender, RoutedEventArgs e)
         {
-            string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = 1502kanDAL";
+            decimal solde = MainWindow.currentUser.Solde;
 
-            MySqlConnection connection = new MySqlConnection(connectionString);
-            connection.Open();
-            MySqlCommand command = connection.CreateCommand();
-            command.CommandText = "Select Prix_recette From recette where NomRecette_Recette= \"nom_recette\"";
-
-            MySqlDataReader reader;
-            reader = command.ExecuteReader();
-            int prix = int.Parse(reader.GetValue(0).ToString());
-            command.CommandText = "Select solde From client";
-            reader = command.ExecuteReader();
-            int solde = int.Parse(reader.GetValue(0).ToString());
-            connection.Close();
-
-            if (solde < prix * int.Parse(TextBlockNbPlats.Text))
-            {
+            if (soldeRestant < 0)
                 MessageBox.Show("Vous ne possédez pas assez de Cook pour réaliser cette commande. Veuillez recharger votre solde.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
             else
             {
-                int newSolde = solde - prix * int.Parse(TextBlockNbPlats.Text);
-                command.CommandText = "Update client Set solde=" + newSolde + " Where Nom_Client=...";
-                MessageBox.Show("La commande a bien été effectuée. Merci de votre confiance. N'hésitez pas à noter l'application!");
-
-
+                string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
+                MySqlConnection connection = new MySqlConnection(connectionString);
+                connection.Open();
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = $"Update client Set Solde_Client={soldeRestant} Where Mail_Client=\"{MainWindow.currentUser.Mail}\"";
+                command.ExecuteNonQuery();
+                MessageBox.Show($"La commande a bien été effectuée (solde restant : {soldeRestant} cook(s)). \nMerci de votre confiance. N'hésitez pas à noter l'application!");
+                connection.Close();
             }
-
         }
-
         private void ButtonRecharger_Click(object sender, RoutedEventArgs e)
         {
-
+            //Lien hypothétique vers une plateforme de paiement pour ajouter des cooks à son compte.
         }
     }
 }

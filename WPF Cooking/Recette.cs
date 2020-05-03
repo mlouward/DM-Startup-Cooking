@@ -24,7 +24,7 @@ namespace WPF_Cooking
         }
         public override string ToString()
         {
-            return $"{Nom} ({Type}) : {Descriptif}. Prix : {PrixVente}€";
+            return $"{Nom} ({Type}) : {Descriptif}. Prix : {PrixVente} cooks";
         }
     }
 }

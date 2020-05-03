@@ -1,17 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace WPF_Cooking
 {
@@ -21,9 +11,10 @@ namespace WPF_Cooking
 
     public partial class ListeRecettes : Window
     {
-        static Dictionary<string, int> recettesNoms = new Dictionary<string, int>();
-        static List<Recette> listeRecettes = new List<Recette>();
         public static Dictionary<Recette, int> compteRecettes = new Dictionary<Recette, int>();
+        static List<Recette> listeRecettes = new List<Recette>();
+        static Dictionary<string, int> recettesNoms = new Dictionary<string, int>();
+
         public ListeRecettes()
         {
             InitializeComponent();
@@ -56,19 +47,12 @@ namespace WPF_Cooking
             connection.Close();
             lvRecettes.ItemsSource = recettes;
         }
-
-        private void Commander_Click(object sender, RoutedEventArgs e)
-        {
-            Paiement paiement = new Paiement();
-            paiement.Show();
-        }
-
         private void BoutonAjout_Click(object sender, RoutedEventArgs e)
         {
             foreach (Recette recette in lvRecettes.SelectedItems)
             {
                 textePrix.Text = Convert.ToString(decimal.Parse(textePrix.Text) + recette.PrixVente);
-                if (recettesNoms.ContainsKey(recette.Nom) && recettesNoms[recette.Nom] < 20)
+                if (recettesNoms.ContainsKey(recette.Nom))
                 {
                     recettesNoms[recette.Nom]++;
                     compteRecettes[recette]++;
@@ -83,7 +67,6 @@ namespace WPF_Cooking
             lvRecap.ItemsSource = null;
             lvRecap.ItemsSource = recettesNoms;
         }
-
         private void BoutonRetirer_Click(object sender, RoutedEventArgs e)
         {
             if (lvRecap.SelectedItem is null)
@@ -106,6 +89,15 @@ namespace WPF_Cooking
                 }
                 lvRecap.ItemsSource = null;
                 lvRecap.ItemsSource = recettesNoms;
+            }
+        }
+        private void Commander_Click(object sender, RoutedEventArgs e)
+        {
+            if (listeRecettes.Count == 0) MessageBox.Show("Votre panier est vide.");
+            else
+            {
+                Paiement paiement = new Paiement();
+                paiement.Show();
             }
         }
     }
