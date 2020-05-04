@@ -66,8 +66,11 @@ namespace WPF_Cooking
                 //Ajout dans la table "commande" pour chaque recette.
                 foreach (KeyValuePair<Recette, int> item in ListeRecettes.compteRecettes)
                 {
+                    //Date au format SQL.
+                    string date = DateTime.Now.Year.ToString("0000") + DateTime.Now.Month.ToString("00") + DateTime.Now.Day.ToString("00")
+                        + DateTime.Now.Hour.ToString("00") + DateTime.Now.Minute.ToString("00") + DateTime.Now.Second.ToString("00");
                     command.CommandText = $"insert into commande values(\"{MainWindow.currentUser.Mail}\", \"{item.Key.Nom}\", {item.Value}" +
-                        $", \'{DateTime.Now.Year.ToString("0000") + DateTime.Now.Month.ToString("00") + DateTime.Now.Day.ToString("00")}\')";
+                            $", \'{date}\')";
                     command.ExecuteNonQuery();
                 }
                 MessageBox.Show($"La commande a bien été effectuée (solde restant : {soldeRestant} cook(s)). \nMerci de votre confiance. N'hésitez pas à noter l'application!");

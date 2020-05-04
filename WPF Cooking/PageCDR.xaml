@@ -5,9 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_Cooking"
         mc:Ignorable="d" Title="PageCDR" MinHeight="300" MinWidth="580"
-        Height="500" Width="900" FontSize="16" Closing="Window_Closing"
-        WindowStartupLocation="CenterScreen" Foreground="#FF151A61"
-        FontFamily="Raleway" FontWeight="DemiBold" Icon="Resources/logo.png">
+        Height="500" Width="900" FontSize="16" WindowStartupLocation="CenterScreen" 
+        Foreground="#FF151A61" FontFamily="Raleway" FontWeight="DemiBold" Icon="Resources/logo.png">
     <Grid Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" />
@@ -22,7 +21,8 @@
         <TextBlock x:Name="TextBlockNomCompte" Margin="5" />
         <TextBlock x:Name="TextBlockSoldeCompte" Margin="5" HorizontalAlignment="Right" />
         <TextBlock Text="Liste de vos recettes :" Grid.Row="1" FontSize="22" VerticalAlignment="Bottom" Margin="5" />
-        <ListView x:Name="ListViewRecettes" Grid.Row="2" Grid.RowSpan="2" />
+        <ListView x:Name="ListViewRecettes" Grid.Row="2" Grid.RowSpan="2" 
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch" />
         <Button x:Name="BoutonSupprRecette" Grid.Column="1" Grid.Row="3" Height="50" MaxWidth="200"
                 Content="Supprimer une recette" Background="#FFFFC61A" BorderBrush="#FFFFC61A"
                 Foreground="White" VerticalAlignment="Bottom" Margin="20, 0, 0, 80"

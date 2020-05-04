@@ -10,6 +10,7 @@ namespace WPF_Cooking
     /// </summary>
     public partial class PageCDR : Window
     {
+        public static FormulaireNewRecette p = new FormulaireNewRecette();
         public PageCDR()
         {
             InitializeComponent();
@@ -51,8 +52,7 @@ namespace WPF_Cooking
         {
             //Ouvrir une page avec un formulaire de création de recette (Comment faire pour les ingrédients sans
             //savoir leur nombre à l'avance?)
-            FormulaireNewRecette nouvelleRecette = new FormulaireNewRecette();
-            nouvelleRecette.Show();
+            p.Show();
         }
 
         private void BoutonSupprRecette_Click(object sender, RoutedEventArgs e)
@@ -89,12 +89,6 @@ namespace WPF_Cooking
 
                 #endregion Supprime une recette de la BDD (un créateur ne peut supprimer que ses recettes)
             }
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            //Déconnecte l'utilisateur
-            MainWindow.currentUser = new Client();
         }
     }
 }
