@@ -51,6 +51,8 @@ namespace WPF_Cooking
         {
             //Ouvrir une page avec un formulaire de création de recette (Comment faire pour les ingrédients sans
             //savoir leur nombre à l'avance?)
+            FormulaireNewRecette nouvelleRecette = new FormulaireNewRecette();
+            nouvelleRecette.Show();
         }
 
         private void BoutonSupprRecette_Click(object sender, RoutedEventArgs e)

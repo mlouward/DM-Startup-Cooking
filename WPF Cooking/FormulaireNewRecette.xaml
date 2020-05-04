@@ -1,0 +1,102 @@
+﻿<Window x:Class="WPF_Cooking.FormulaireNewRecette"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_Cooking"
+        mc:Ignorable="d" Title="Création de recette" MinWidth="500" MinHeight="600"
+        Height="800" Width="500" FontSize="16"
+        WindowStartupLocation="CenterScreen" Foreground="#FF151A61"
+        FontFamily="Raleway" FontWeight="DemiBold" Icon="Resources/logo.png">
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.2*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".3*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <TextBlock Text="Créez votre nouvelle recette!" Grid.ColumnSpan="2"
+                   TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+        <TextBlock Grid.Row="1" Text="Nom de votre recette :" VerticalAlignment="Center" HorizontalAlignment="Left" />
+        <TextBox x:Name="TextBoxNomRecette" Grid.Row="1" Grid.Column="1" Width="200" Height="26" FontSize="18" />
+
+        <TextBlock Grid.Row="2" Text="Premier ingrédient :" VerticalAlignment="Center" HorizontalAlignment="Left" />
+        <Grid Grid.Row="2" Grid.Column="1" Margin="0, 5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="Nom:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0, 0, 0" />
+            <TextBox x:Name="TextBoxIngredient1" Width="200" Height="26" HorizontalAlignment="Right" FontSize="18" />
+            <TextBlock Text="Quantité (en g ou mL):" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0, 0, 0" />
+            <TextBox x:Name="TextBoxQtt1" Width="100" Height="26" Grid.Row="1" HorizontalAlignment="Right" FontSize="18" />
+        </Grid>
+
+        <TextBlock Grid.Row="3" Text="Deuxième ingrédient :" VerticalAlignment="Center" HorizontalAlignment="Left" />
+        <Grid Grid.Row="3" Grid.Column="1" Margin="0, 5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="Nom:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0, 0, 0" />
+            <TextBox x:Name="TextBoxIngredient2" Width="200" Height="26" HorizontalAlignment="Right" FontSize="18" />
+            <TextBlock Text="Quantité (en g ou mL):" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0, 0, 0" />
+            <TextBox x:Name="TextBoxQtt2" Width="100" Height="26" Grid.Row="1" HorizontalAlignment="Right" FontSize="18" />
+        </Grid>
+
+        <TextBlock Grid.Row="4" Text="Troisième ingrédient :" VerticalAlignment="Center" HorizontalAlignment="Left" />
+        <Grid Grid.Row="4" Grid.Column="1" Margin="0, 5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="Nom:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0, 0, 0" />
+            <TextBox x:Name="TextBoxIngredient3" Width="200" Height="26" HorizontalAlignment="Right" FontSize="18" />
+            <TextBlock Text="Quantité (en g ou mL):" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0, 0, 0" />
+            <TextBox x:Name="TextBoxQtt3" Width="100" Height="26" Grid.Row="1" HorizontalAlignment="Right" FontSize="18" />
+        </Grid>
+
+        <TextBlock Grid.Row="5" Text="Quatrième ingrédient :" VerticalAlignment="Center" HorizontalAlignment="Left" />
+        <Grid Grid.Row="5" Grid.Column="1" Margin="0, 5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="Nom:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0, 0, 0" />
+            <TextBox x:Name="TextBoxIngredient4" Width="200" Height="26" HorizontalAlignment="Right" FontSize="18" />
+            <TextBlock Text="Quantité (en g ou mL):" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0, 0, 0" />
+            <TextBox x:Name="TextBoxQtt4" Width="100" Height="26" Grid.Row="1" HorizontalAlignment="Right" FontSize="18" />
+        </Grid>
+
+        <TextBlock Grid.Row="6" Text="Cinquième ingrédient :" VerticalAlignment="Center" HorizontalAlignment="Left" />
+        <Grid Grid.Row="6" Grid.Column="1" Margin="0, 5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="Nom:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0, 0, 0" />
+            <TextBox x:Name="TextBoxIngredient5" Width="200" Height="26" HorizontalAlignment="Right" FontSize="18" />
+            <TextBlock Text="Quantité (en g ou mL):" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0, 0, 0" />
+            <TextBox x:Name="TextBoxQtt5" Width="100" Height="26" Grid.Row="1" HorizontalAlignment="Right" FontSize="18" />
+        </Grid>
+
+        <TextBlock Grid.Row="7" Text="Prix :" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10, 0" />
+        <TextBox x:Name="TextBoxPrixRecette" Grid.Row="7" Grid.Column="1" Width="40" Height="26" FontSize="18"
+                 HorizontalAlignment="Left"  Margin="50, 0" />
+        <TextBlock Grid.Row="7" Grid.Column="1" Text="cooks" VerticalAlignment="Center"
+                   HorizontalAlignment="Left" Margin="100, 0, 0, 0" />
+
+        <Button x:Name="BoutonValiderRecette" Content="Valider la recette" Grid.Row="8" Grid.ColumnSpan="2"
+                Background="#FFFFC61A" BorderBrush="#FFFFC61A" Foreground="White" IsDefault="True" Width="220" Height="50" Click="BoutonValiderRecette_Click" />
+    </Grid>
+</Window>

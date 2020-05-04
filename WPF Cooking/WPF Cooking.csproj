@@ -127,6 +127,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CDR.cs" />
+    <Compile Include="FormulaireNewRecette.xaml.cs">
+      <DependentUpon>FormulaireNewRecette.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PageCDR.xaml.cs">
       <DependentUpon>PageCDR.xaml</DependentUpon>
     </Compile>
@@ -140,6 +143,10 @@
     <Compile Include="SignUpPage.xaml.cs">
       <DependentUpon>SignUpPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="FormulaireNewRecette.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ListeRecettes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
