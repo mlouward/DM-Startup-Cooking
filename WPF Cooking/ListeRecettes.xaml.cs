@@ -111,7 +111,8 @@ namespace WPF_Cooking
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            Hide();
+            //Déconnecte l'utilisateur
+            MainWindow.currentUser = null;
         }
     }
 }

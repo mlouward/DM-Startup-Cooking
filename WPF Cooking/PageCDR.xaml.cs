@@ -49,7 +49,50 @@ namespace WPF_Cooking
 
         private void BoutonAjoutRecette_Click(object sender, RoutedEventArgs e)
         {
+            //Ouvrir une page avec un formulaire de création de recette (Comment faire pour les ingrédients sans
+            //savoir leur nombre à l'avance?)
+        }
 
+        private void BoutonSupprRecette_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListViewRecettes.SelectedItem is null) MessageBox.Show("Aucune recette à supprimer n'a été sélectionnée!");
+            else
+            {
+                #region Supprime une recette de la BDD (un créateur ne peut supprimer que ses recettes)
+
+                string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
+                MySqlConnection connection = new MySqlConnection(connectionString);
+                try
+                {
+                    Recette toDelete = (Recette)ListViewRecettes.SelectedItem;
+                    var res = MessageBox.Show($"La recette \"{toDelete.Nom}\" va etre supprimée. Cette opération est irréversible.\nÊtes-vous sur de vouloir continuer?",
+                        "Attention", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                    if (res == MessageBoxResult.OK)
+                    {
+                        string requete = $"delete from recette where Nomrecette_recette = \"{toDelete.Nom}\"";
+                        connection.Open();
+                        MySqlCommand cmd = new MySqlCommand(requete, connection);
+                        cmd.ExecuteNonQuery();
+                        //On actualise la liste des recettes.
+                        this.Close();
+                        PageCDR pageCDR = new PageCDR();
+                        pageCDR.Show();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+                connection.Close();
+
+                #endregion Supprime une recette de la BDD (un créateur ne peut supprimer que ses recettes)
+            }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //Déconnecte l'utilisateur
+            MainWindow.currentUser = null;
         }
     }
 }
