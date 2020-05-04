@@ -25,16 +25,19 @@
         {
         }
 
-        public CDR(string nom, string mail, int nbCommandes)
+        public CDR(string mail, int nbRecettes)
+        {
+            Mail = mail;
+            NbRecettesSoumises = nbRecettes;
+        }
+        public CDR(string nom, string mail, int nbRecettes) : this(mail, nbRecettes)
         {
             Nom = nom;
-            Mail = mail;
-            NbCommandes = nbCommandes;
         }
 
         public override string ToString()
         {
-            return $"{Nom} ({Mail}), {NbRecettesSoumises} recettes";
+            return $"{Nom} ({Mail}), {NbRecettesSoumises} recette(s)";
         }
     }
 }

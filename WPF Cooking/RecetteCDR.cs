@@ -17,6 +17,10 @@ namespace WPF_Cooking
             Ingredients = ingredients;
         }
 
+        public RecetteCDR(string nom, string type, string descriptif, decimal prixVente, int popularite) : base(nom, type, descriptif, prixVente, popularite)
+        {
+        }
+
         public override string ToString()
         {
             return base.ToString() + $" (commandée {Popularite} fois)";

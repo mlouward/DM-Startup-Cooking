@@ -18,22 +18,6 @@ namespace WPF_Cooking
         public Paiement()
         {
             InitializeComponent();
-
-            //string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
-
-            //MySqlConnection connection = new MySqlConnection(connectionString);
-            //connection.Open();
-            //MySqlCommand command = connection.CreateCommand();
-            //command.CommandText = "Select Prix_recette From recette where NomRecette_Recette= \"nom_recette\"";
-
-            //MySqlDataReader reader;
-            //reader = command.ExecuteReader();
-            //int prix = int.Parse(reader.GetValue(0).ToString());
-            //command.CommandText = "Select solde From client";
-            //reader = command.ExecuteReader();
-            //int solde = int.Parse(reader.GetValue(0).ToString());
-            //connection.Close();
-
             listBoxRecap.ItemsSource = recap;
             foreach (KeyValuePair<Recette, int> recette in recap)
             {

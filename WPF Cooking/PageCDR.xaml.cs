@@ -43,7 +43,7 @@ namespace WPF_Cooking
 
             #endregion Récupère les recettes d'un CDR dans la BDD
 
-            TextBlockNomCompte.Text = $"Compte de {MainWindow.currentUser.Nom}";
+            TextBlockNomCompte.Text = $"Compte de {MainWindow.currentUser.Nom} (CDR).";
             TextBlockSoldeCompte.Text = $"Mon solde : {MainWindow.currentUser.Solde} cooks";
             ListViewRecettes.ItemsSource = recettes;
         }
