@@ -12,8 +12,8 @@ namespace WPF_Cooking
     public partial class ListeRecettes : Window
     {
         public static Dictionary<Recette, int> compteRecettes = new Dictionary<Recette, int>();
-        static List<Recette> listeRecettes = new List<Recette>();
-        static Dictionary<string, int> recettesNoms = new Dictionary<string, int>();
+        private static List<Recette> listeRecettes = new List<Recette>();
+        private static Dictionary<string, int> recettesNoms = new Dictionary<string, int>();
 
         public ListeRecettes()
         {
@@ -47,6 +47,7 @@ namespace WPF_Cooking
             connection.Close();
             lvRecettes.ItemsSource = recettes;
         }
+
         private void BoutonAjout_Click(object sender, RoutedEventArgs e)
         {
             foreach (Recette recette in lvRecettes.SelectedItems)
@@ -67,6 +68,7 @@ namespace WPF_Cooking
             lvRecap.ItemsSource = null;
             lvRecap.ItemsSource = recettesNoms;
         }
+
         private void BoutonRetirer_Click(object sender, RoutedEventArgs e)
         {
             if (lvRecap.SelectedItem is null)
@@ -91,6 +93,7 @@ namespace WPF_Cooking
                 lvRecap.ItemsSource = recettesNoms;
             }
         }
+
         private void Commander_Click(object sender, RoutedEventArgs e)
         {
             if (listeRecettes.Count == 0) MessageBox.Show("Votre panier est vide.");

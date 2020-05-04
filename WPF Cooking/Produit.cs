@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WPF_Cooking
+﻿namespace WPF_Cooking
 {
     public class Produit
     {
@@ -16,6 +10,7 @@ namespace WPF_Cooking
         public int StockMax { get; set; }
         public string NomFournisseur { get; set; }
         public string RefFournisseur { get; set; }
+
         public Produit(string nom, string categorie, string unite)
         {
             Nom = nom;

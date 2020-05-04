@@ -9,9 +9,10 @@ namespace WPF_Cooking
     /// </summary>
     public partial class Paiement : Window
     {
-        decimal prixTot = 0;
-        decimal soldeRestant = 0;
-        Dictionary<Recette, int> recap = ListeRecettes.compteRecettes; //On récupère la liste des recettes dans le panier et leur nombre.
+        private decimal prixTot = 0;
+        private decimal soldeRestant = 0;
+        private Dictionary<Recette, int> recap = ListeRecettes.compteRecettes; //On récupère la liste des recettes dans le panier et leur nombre.
+
         public Paiement()
         {
             InitializeComponent();
@@ -42,6 +43,7 @@ namespace WPF_Cooking
             soldeRestant = MainWindow.currentUser.Solde - prixTot;
             TextBlockSoldeRestant.Text = $"Solde restant : {soldeRestant} cook(s)";
         }
+
         private void ButtonPayer_Click(object sender, RoutedEventArgs e)
         {
             decimal solde = MainWindow.currentUser.Solde;
@@ -141,6 +143,7 @@ namespace WPF_Cooking
                 MainWindow.listeRecettes.Hide(); //Ferme la fenêtre de commande.
             }
         }
+
         private void ButtonRecharger_Click(object sender, RoutedEventArgs e)
         {
             //Lien hypothétique vers une plateforme de paiement pour ajouter des cooks à son compte.
@@ -150,14 +153,10 @@ namespace WPF_Cooking
             connection.Open();
             MySqlCommand command = connection.CreateCommand();
             command.CommandText = $"Update client Set Solde_Client={MainWindow.currentUser.Solde + 100} Where Mail_Client=\"{MainWindow.currentUser.Mail}\"";
+            MainWindow.currentUser.Solde += 100;
             command.ExecuteNonQuery();
             connection.Close();
             MessageBox.Show($"+100 COOKS");
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            Hide();
         }
     }
 }

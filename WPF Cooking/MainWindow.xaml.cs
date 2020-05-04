@@ -11,13 +11,13 @@ namespace WPF_Cooking
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static ListeRecettes listeRecettes = new ListeRecettes();
         public static Client currentUser = new Client();
+        public static ListeRecettes listeRecettes = new ListeRecettes();
 
         public MainWindow()
         {
             InitializeComponent();
-            TextBoxMail.Text = "azerty@gmail.com";
+            TextBoxMail.Text = "cdr";
             PasswordBoxMdp.Password = "Maxime";
         }
 
@@ -43,57 +43,38 @@ namespace WPF_Cooking
             string mail = TextBoxMail.Text;
             string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
 
-            string requeteMdp = $"Select mdp_Client from client where Mail_Client = \"{mail}\"";
-            string requeteSolde = $"Select Solde_client from client where Mail_Client = \"{mail}\"";
-            string requeteStatut = $"Select Statut_client from client where Mail_Client = \"{mail}\"";
+            string requeteMdp = $"Select mdp_Client, Solde_Client, Statut_client from client where Mail_Client = \"{mail}\"";
 
-            string resultatRequete = "";
+            string resultatMdp = "";
             string resultatStatut = "";
             int solde = 0;
 
             MySqlConnection connection = new MySqlConnection(connectionString);
-            MySqlConnection connection2 = new MySqlConnection(connectionString);
-            MySqlConnection connection3 = new MySqlConnection(connectionString);
             try
             {
                 connection.Open();
-                connection2.Open();
-                connection3.Open();
 
                 MySqlCommand cmd = new MySqlCommand(requeteMdp, connection);
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
                 rdr.Read();
-                resultatRequete = rdr.GetString(0);
-
-                MySqlCommand cmd2 = new MySqlCommand(requeteSolde, connection2);
-                MySqlDataReader rdr2 = cmd2.ExecuteReader();
-
-                rdr2.Read();
-                solde = rdr2.GetInt32(0);
-
-                MySqlCommand cmd3 = new MySqlCommand(requeteStatut, connection3);
-                MySqlDataReader rdr3 = cmd3.ExecuteReader();
-
-                rdr3.Read();
-                resultatStatut = rdr3.GetString(0).ToLower();
+                resultatMdp = rdr.GetString(0);
+                solde = rdr.GetInt32(1);
+                resultatStatut = rdr.GetString(2);
 
                 rdr.Close();
-                rdr2.Close();
-                rdr3.Close();
             }
             catch (Exception)
             {
                 MessageBox.Show("La connection avec la BDD a échoué."); //Pourquoi s'affiche tout le temps?
             }
             connection.Close();
-            connection2.Close();
-            connection3.Close();
+
             // Si nom d'utilisateur pas dans la base de données
-            if (resultatRequete == "") MessageBox.Show($"L'adresse mail '{mail}' n'appartient pas à la base de données. Veuillez créer un compte.");
+            if (resultatMdp == "") MessageBox.Show($"L'adresse mail '{mail}' n'appartient pas à la base de données. Veuillez créer un compte.");
 
             // Si mdp incorrect
-            else if (resultatRequete != PasswordBoxMdp.Password) MessageBox.Show($"Le mot de passe entré ne correspond pas à l'adresse '{mail}'");
+            else if (resultatMdp != PasswordBoxMdp.Password) MessageBox.Show($"Le mot de passe entré ne correspond pas à l'adresse '{mail}'");
 
             // Si tout est correct
             else
@@ -102,16 +83,20 @@ namespace WPF_Cooking
                 {
                     currentUser.Mail = TextBoxMail.Text;
                     currentUser.Solde = solde;
-                    
+
+                    listeRecettes.InitializeComponent();
                     listeRecettes.Show();
                 }
                 else if (resultatStatut == "cdr")
                 {
+                    currentUser.Mail = TextBoxMail.Text;
+                    currentUser.Solde = solde;
 
+                    PageCDR pageCdr = new PageCDR();
+                    pageCdr.Show();
                 }
                 else if (resultatStatut == "admin")
                 {
-
                 }
                 else
                 {

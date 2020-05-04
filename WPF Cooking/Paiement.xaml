@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPF_Cooking"
         mc:Ignorable="d" Height="500" Width="900" FontSize="15"
         WindowStartupLocation="CenterScreen" Foreground="#FF151A61" Title="Recettes"
-        FontFamily="Raleway" FontWeight="DemiBold" Icon="Resources/logo.png" Closing="Window_Closing">
+        FontFamily="Raleway" FontWeight="DemiBold" Icon="Resources/logo.png">
 
     <Grid Margin="20">
         <Grid.ColumnDefinitions>
@@ -21,7 +21,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock FontSize="20" Text="Récapitulatif de votre commande :" VerticalAlignment="Bottom" />
-        <ListBox Grid.Row="1" Name="listBoxRecap" Grid.RowSpan="3"/>
+        <ListBox Grid.Row="1" Name="listBoxRecap" Grid.RowSpan="3" />
         <TextBlock Grid.Row="4" FontSize="20" VerticalAlignment="Center" Text="Prix total :"
                    HorizontalAlignment="Center" TextAlignment="Center" Margin="0, 0, 100, 0" />
         <TextBlock Grid.Row="4" FontSize="20" VerticalAlignment="Center" Name="TextBlockPrix"
