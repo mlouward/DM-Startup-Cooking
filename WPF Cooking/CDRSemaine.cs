@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WPF_Cooking
+﻿namespace WPF_Cooking
 {
-    class CDRSemaine : CDR
+    internal class CDRSemaine : CDR
     {
-
-        public CDRSemaine(string mail, int nbCommandes) : base(mail, nbCommandes)
+        public CDRSemaine(string nom, string mail, int nbCommandes) : base(nom, mail, nbCommandes)
         {
         }
+
         public override string ToString()
         {
-            return $"{Mail} : {NbCommandes} commandes";
+            return $"{Nom} ({Mail}) : {NbCommandes} commandes";
         }
     }
 }

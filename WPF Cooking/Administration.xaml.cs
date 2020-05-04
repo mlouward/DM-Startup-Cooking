@@ -27,10 +27,7 @@ namespace WPF_Cooking
                         + dateVoulue.Hour.ToString("00") + dateVoulue.Minute.ToString("00") + dateVoulue.Second.ToString("00");
 
             //Retourne le mail du CDR de la semaine, son nom et son nb de recettes commandées dans la derniere semaine.
-            string requete = $"select client.Mail_Client, client.Nom_Client, count(distinct r.nomrecette_recette), sum(distinct popularité_recette) as nb " +
-                $"from client natural join crée cr join recette r on r.nomrecette_recette = cr.nomrecette_recette " +
-                $"join commande c on c.nomrecette_recette = r.nomrecette_recette where c.Date_Commande > \'{date}\' " +
-                $"group by client.mail_client order by nb desc limit 1";
+            string requete = $"select cr.Mail_Client, cl.Nom_Client, sum(nombreplats) as s from commande c join crée cr on cr.Nomrecette_Recette = c.Nomrecette_recette join client cl on cl.Mail_Client = cr.Mail_Client where c.Date_Commande > \'{date}\' group by cr.Mail_Client order by s desc limit 1";
 
             string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
             MySqlConnection connection = new MySqlConnection(connectionString);
@@ -46,7 +43,7 @@ namespace WPF_Cooking
                 else
                 {
                     //sinon, affiche le CDR de la semaine
-                    CDR c = new CDR(rdr.GetString(1), rdr.GetString(0), rdr.GetInt32(2));
+                    CDRSemaine c = new CDRSemaine(rdr.GetString(1), rdr.GetString(0), rdr.GetInt32(2));
                     TextBlockCDR.Text += c.ToString();
                 }
                 rdr.Close();
@@ -72,8 +69,17 @@ namespace WPF_Cooking
                 ListViewToutesRecettes.ItemsSource = allRecettes;
                 rdr.Close();
 
-                //CDR d'Or (all time)
-                command.CommandText = "select * from recette order by popularité_recette asc";
+                //CDR d'Or (le plus de commandes)
+                command.CommandText = "select cl.Nom_Client, cr.Mail_Client, sum(NombrePlats) as s from commande c join crée cr on cr.Nomrecette_Recette = c.Nomrecette_recette join client cl on cl.Mail_Client = cr.Mail_Client group by cr.Mail_Client order by s desc limit 1";
+                rdr = command.ExecuteReader();
+                rdr.Read();
+                CDRSemaine cdr = new CDRSemaine(rdr.GetString(0), rdr.GetString(1), rdr.GetInt32(2));
+                TextBlockCDROr.Text += cdr;
+                rdr.Close();
+
+                //Liste des 5 meilleures recettes du CDR d'or
+
+
             }
             catch (Exception)
             {

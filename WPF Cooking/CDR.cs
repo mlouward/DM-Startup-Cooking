@@ -25,12 +25,13 @@
         {
         }
 
-        public CDR(string mail, int nbRecettes)
+        public CDR(string mail, int nbCommandes)
         {
             Mail = mail;
-            NbRecettesSoumises = nbRecettes;
+            NbCommandes = nbCommandes;
         }
-        public CDR(string nom, string mail, int nbRecettes) : this(mail, nbRecettes)
+
+        public CDR(string nom, string mail, int nbCommandes) : this(mail, nbCommandes)
         {
             Nom = nom;
         }
