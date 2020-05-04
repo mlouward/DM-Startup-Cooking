@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -52,16 +53,27 @@ namespace WPF_Cooking
                 MessageBox.Show("Vous ne possédez pas assez de Cook pour réaliser cette commande. Veuillez recharger votre solde.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {
-                //Popularité, solde restant s'incrémentent
+                //Popularité, solde restant s'incrémentent et ajoute une entrée dans la table "commande"
                 string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
                 MySqlConnection connection = new MySqlConnection(connectionString);
                 connection.Open();
+
+                //Mise à jour du solde
                 MySqlCommand command = connection.CreateCommand();
                 command.CommandText = $"Update client Set Solde_Client={soldeRestant} Where Mail_Client=\"{MainWindow.currentUser.Mail}\"";
                 command.ExecuteNonQuery();
+
+                //Ajout dans la table "commande" pour chaque recette.
+                foreach (KeyValuePair<Recette, int> item in ListeRecettes.compteRecettes)
+                {
+                    command.CommandText = $"insert into commande values(\"{MainWindow.currentUser.Mail}\", \"{item.Key.Nom}\", {item.Value}" +
+                        $", \'{DateTime.Now.Year.ToString("0000") + DateTime.Now.Month.ToString("00") + DateTime.Now.Day.ToString("00")}\')";
+                    command.ExecuteNonQuery();
+                }
                 MessageBox.Show($"La commande a bien été effectuée (solde restant : {soldeRestant} cook(s)). \nMerci de votre confiance. N'hésitez pas à noter l'application!");
                 connection.Close();
 
+                //Met à jour le nb de commande d'une recette (Popularité).
                 MySqlConnection connection2 = new MySqlConnection(connectionString);
                 connection2.Open();
                 MySqlCommand command2 = connection2.CreateCommand();
@@ -109,6 +121,7 @@ namespace WPF_Cooking
                 }
                 connection4.Close();
 
+                //Mise à jour des stocks
                 MySqlConnection connection5 = new MySqlConnection(connectionString);
                 connection5.Open();
                 MySqlCommand command5 = connection5.CreateCommand();
@@ -134,11 +147,9 @@ namespace WPF_Cooking
                         rdr.Close();
                         command5.CommandText = $"update produit set StockActuel_Produit = StockActuel_Produit - {qtt} where NomProduit_Produit=\"{i}\"";
                         command5.ExecuteNonQuery();
-                        //TODO : Si qtté < 0 : Empêcher la commande?
                     }
                 }
                 connection5.Close();
-
                 Close(); //ferme la fenêtre de paiement.
             }
         }

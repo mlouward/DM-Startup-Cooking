@@ -94,9 +94,19 @@ namespace WPF_Cooking
                     currentUser.Mail = TextBoxMail.Text;
                     currentUser.Solde = solde;
                     currentUser.Nom = resultatNom;
-
-                    PageCDR pageCdr = new PageCDR();
-                    pageCdr.Show();
+                    //Un cdr est un client, donc il peut accéder au portail client ainsi qu'au portail CDR.
+                    var res = MessageBox.Show($"Bonjour {currentUser.Nom}! Voulez-vous vous accéder au portail Client? Sinon, vous ouvrirez le portail CDR.",
+                        "Choix de portail", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (res == MessageBoxResult.Yes)
+                    {
+                        ListeRecettes listeRecettes = new ListeRecettes();
+                        listeRecettes.Show();
+                    }
+                    else
+                    {
+                        PageCDR pageCdr = new PageCDR();
+                        pageCdr.Show();
+                    }
                 }
                 else if (resultatStatut == "admin")
                 {
