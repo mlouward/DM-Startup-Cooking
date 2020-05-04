@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows;
 
 namespace WPF_Cooking
@@ -38,11 +39,11 @@ namespace WPF_Cooking
             {
                 prixTot += recette.Key.PrixVente * recette.Value;
             }
-            TextBlockPrix.Text = $"{prixTot} cook(s)";
-            TextBlockSolde.Text = $"{MainWindow.currentUser.Solde} cook(s)";
-            TextBlockPrixBis.Text = $"- {prixTot} cook(s)";
+            TextBlockPrix.Text = $"{prixTot.ToString(new CultureInfo("en-US"))} cook(s)";
+            TextBlockSolde.Text = $"{MainWindow.currentUser.Solde.ToString(new CultureInfo("en-US"))} cook(s)";
+            TextBlockPrixBis.Text = $"- {prixTot.ToString(new CultureInfo("en-US"))} cook(s)";
             soldeRestant = MainWindow.currentUser.Solde - prixTot;
-            TextBlockSoldeRestant.Text = $"Solde restant : {soldeRestant} cook(s)";
+            TextBlockSoldeRestant.Text = $"Solde restant : {soldeRestant.ToString(new CultureInfo("en-US"))} cook(s)";
         }
 
         private void ButtonPayer_Click(object sender, RoutedEventArgs e)
@@ -60,7 +61,7 @@ namespace WPF_Cooking
 
                 //Mise à jour du solde
                 MySqlCommand command = connection.CreateCommand();
-                command.CommandText = $"Update client Set Solde_Client={soldeRestant} Where Mail_Client=\"{MainWindow.currentUser.Mail}\"";
+                command.CommandText = $"Update client Set Solde_Client=\"{soldeRestant.ToString(new CultureInfo("en-US"))}\" Where Mail_Client=\"{MainWindow.currentUser.Mail}\"";
                 command.ExecuteNonQuery();
 
                 //Ajout dans la table "commande" pour chaque recette.

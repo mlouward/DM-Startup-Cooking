@@ -16,7 +16,7 @@ namespace WPF_Cooking
         public MainWindow()
         {
             InitializeComponent();
-            TextBoxMail.Text = "cdr";
+            TextBoxMail.Text = "admin";
             PasswordBoxMdp.Password = "Maxime";
         }
 
@@ -110,6 +110,22 @@ namespace WPF_Cooking
                 }
                 else if (resultatStatut == "admin")
                 {
+                    currentUser.Mail = TextBoxMail.Text;
+                    currentUser.Solde = solde;
+                    currentUser.Nom = resultatNom;
+                    //Un admin est un client, donc il peut accéder au portail client ainsi qu'au portail administration.
+                    var res = MessageBox.Show($"Bonjour {currentUser.Nom}! Voulez-vous vous accéder au portail Client? Sinon, vous ouvrirez le portail ADMIN.",
+                        "Choix de portail", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (res == MessageBoxResult.Yes)
+                    {
+                        ListeRecettes listeRecettes = new ListeRecettes();
+                        listeRecettes.Show();
+                    }
+                    else
+                    {
+                        Administration admin = new Administration();
+                        admin.Show();
+                    }
                 }
                 else
                 {
