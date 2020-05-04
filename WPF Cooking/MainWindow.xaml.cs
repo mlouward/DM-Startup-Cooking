@@ -12,7 +12,6 @@ namespace WPF_Cooking
     public partial class MainWindow : Window
     {
         public static Client currentUser = new Client();
-        public static ListeRecettes listeRecettes = new ListeRecettes();
 
         public MainWindow()
         {
@@ -43,10 +42,11 @@ namespace WPF_Cooking
             string mail = TextBoxMail.Text;
             string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
 
-            string requeteMdp = $"Select mdp_Client, Solde_Client, Statut_client from client where Mail_Client = \"{mail}\"";
+            string requeteMdp = $"Select mdp_Client, Solde_Client, Statut_client, Nom_Client from client where Mail_Client = \"{mail}\"";
 
             string resultatMdp = "";
             string resultatStatut = "";
+            string resultatNom = "";
             int solde = 0;
 
             MySqlConnection connection = new MySqlConnection(connectionString);
@@ -60,7 +60,8 @@ namespace WPF_Cooking
                 rdr.Read();
                 resultatMdp = rdr.GetString(0);
                 solde = rdr.GetInt32(1);
-                resultatStatut = rdr.GetString(2);
+                resultatStatut = rdr.GetString(2).ToLower();
+                resultatNom = rdr.GetString(3);
 
                 rdr.Close();
             }
@@ -83,14 +84,16 @@ namespace WPF_Cooking
                 {
                     currentUser.Mail = TextBoxMail.Text;
                     currentUser.Solde = solde;
+                    currentUser.Nom = resultatNom;
 
-                    listeRecettes.InitializeComponent();
+                    ListeRecettes listeRecettes = new ListeRecettes();
                     listeRecettes.Show();
                 }
                 else if (resultatStatut == "cdr")
                 {
                     currentUser.Mail = TextBoxMail.Text;
                     currentUser.Solde = solde;
+                    currentUser.Nom = resultatNom;
 
                     PageCDR pageCdr = new PageCDR();
                     pageCdr.Show();

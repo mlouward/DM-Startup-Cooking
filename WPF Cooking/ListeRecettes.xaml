@@ -10,6 +10,7 @@
         FontFamily="Raleway" FontWeight="DemiBold" Icon="Resources/logo.png" Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height=".4*" />
             <RowDefinition Height="6*" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
@@ -17,13 +18,13 @@
             <ColumnDefinition Width="4*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
+        <TextBlock x:Name="TextBlockNomCompte" Margin="5, 0" VerticalAlignment="Top" />
+        <ListView x:Name="lvRecettes" BorderBrush="Gray" Grid.Row="1" />
 
-        <ListView x:Name="lvRecettes" BorderBrush="Gray" />
-
-        <Button Grid.Column="0" Grid.Row="1" Background="#FFFFC61A" BorderBrush="#FFFFC61A"
+        <Button Grid.Column="0" Grid.Row="2" Background="#FFFFC61A" BorderBrush="#FFFFC61A"
                 Foreground="White" MaxWidth="200" MaxHeight="45" Content="Ajouter au Panier"
                 Name="BoutonAjout" Click="BoutonAjout_Click" />
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="5*" />
                 <RowDefinition Height=".8*" />
@@ -34,16 +35,16 @@
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
             <ListView BorderBrush="White" Name="lvRecap" Grid.ColumnSpan="2" />
-            <TextBlock Grid.Row="1" Name="textePrix" VerticalAlignment="Center" Text="0"
+            <TextBlock Grid.Row="0" Name="textePrix" VerticalAlignment="Bottom" Text="0"
                        HorizontalAlignment="Right" Margin="2" />
 
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="cook(s)" VerticalAlignment="Center"
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="cook(s)" VerticalAlignment="Bottom"
                        HorizontalAlignment="Left" Margin="2" Name="change" />
 
-            <Button Grid.Row="2" Name="BoutonRetirer" Content="Retirer du Panier" Margin="0,0,0,5"
+            <Button Grid.Row="1" Name="BoutonRetirer" Content="Retirer du Panier" Margin="0,0,0,5"
                     Background="#FFFFC61A" BorderBrush="#FFFFC61A" Foreground="White"
                     Click="BoutonRetirer_Click" Grid.ColumnSpan="2" />
         </Grid>
-        <Button Grid.Column="1" Grid.Row="1" Name="Commander" Click="Commander_Click" Content="Commander" Background="#FFFFC61A" BorderBrush="#FFFFC61A" Foreground="White" />
+        <Button Grid.Column="1" Grid.Row="2" Name="Commander" Click="Commander_Click" Content="Commander" Background="#FFFFC61A" BorderBrush="#FFFFC61A" Foreground="White" />
     </Grid>
 </Window>

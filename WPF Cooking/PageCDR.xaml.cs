@@ -16,6 +16,7 @@ namespace WPF_Cooking
             List<Recette> recettes = new List<Recette>();
 
             #region Récupère les recettes d'un CDR dans la BDD
+
             string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
             MySqlConnection connection = new MySqlConnection(connectionString);
             try
@@ -29,7 +30,7 @@ namespace WPF_Cooking
                 while (rdr.Read())
                 {
                     //Liste pour y accéder en tant qu'objets.
-                    recettes.Add(new Recette(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetDecimal(3), rdr.GetInt32(4), rdr.GetString(5)));
+                    recettes.Add(new RecetteCDR(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetDecimal(3), rdr.GetInt32(4), rdr.GetString(5)));
                 }
                 rdr.Close();
             }
@@ -38,9 +39,17 @@ namespace WPF_Cooking
                 MessageBox.Show(ex.ToString());
             }
             connection.Close();
-            #endregion
 
+            #endregion Récupère les recettes d'un CDR dans la BDD
+
+            TextBlockNomCompte.Text = $"Compte de {MainWindow.currentUser.Nom}";
+            TextBlockSoldeCompte.Text = $"Mon solde : {MainWindow.currentUser.Solde} cooks";
             ListViewRecettes.ItemsSource = recettes;
+        }
+
+        private void BoutonAjoutRecette_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

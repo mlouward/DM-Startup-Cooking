@@ -139,8 +139,7 @@ namespace WPF_Cooking
                 }
                 connection5.Close();
 
-                Hide(); //ferme la fenêtre de paiement.
-                MainWindow.listeRecettes.Hide(); //Ferme la fenêtre de commande.
+                Close(); //ferme la fenêtre de paiement.
             }
         }
 

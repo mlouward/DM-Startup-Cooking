@@ -21,9 +21,10 @@ namespace WPF_Cooking
             recettesNoms.Clear(); //Remet le panier à 0.
             compteRecettes.Clear(); //Remet le compte des recettes à 0.
             List<Recette> recettes = new List<Recette>();
-            string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
 
-            //Récupérer les recettes de la BDD
+            #region Récupérer les recettes de la BDD
+
+            string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
             MySqlConnection connection = new MySqlConnection(connectionString);
             string requete = "Select * From recette";
             try
@@ -45,6 +46,10 @@ namespace WPF_Cooking
                 Console.WriteLine(ex.Message);
             }
             connection.Close();
+
+            #endregion Récupérer les recettes de la BDD
+
+            TextBlockNomCompte.Text = $"Compte de {MainWindow.currentUser.Nom}";
             lvRecettes.ItemsSource = recettes;
         }
 
