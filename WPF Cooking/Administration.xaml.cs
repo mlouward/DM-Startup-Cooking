@@ -15,6 +15,7 @@ namespace WPF_Cooking
         public Administration()
         {
             InitializeComponent();
+            allRecettes.Clear();
             TextBlockNomCompte.Text = $"Compte de {MainWindow.currentUser.Nom} (administrateur).";
 
             //Retrouver le CDR de la semaine
@@ -94,8 +95,7 @@ namespace WPF_Cooking
                 try
                 {
                     string index = ListViewToutesRecettes.SelectedItem.ToString().Split('(')[0];
-                    Recette r = allRecettes.Find(x => x.Nom == index);
-                    MessageBox.Show(r.ToString());
+                    Recette r = allRecettes.Find(x => x.Nom == index.Trim());
                     var res = MessageBox.Show($"La recette \"{r.Nom}\" va etre supprimée. Cette opération est irréversible.\nÊtes-vous sur de vouloir continuer?",
                             "Attention", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
 

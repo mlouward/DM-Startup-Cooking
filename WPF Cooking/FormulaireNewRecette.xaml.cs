@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows;
 
 namespace WPF_Cooking
@@ -69,7 +70,7 @@ namespace WPF_Cooking
                     }
 
                     //Recette
-                    string requete = $"insert into recette values (\"{recette.Nom}\", \"{recette.Type}\", \"{recette.Descriptif}\", {recette.PrixVente}, {recette.Popularite})";
+                    string requete = $"insert into recette values (\"{recette.Nom}\", \"{recette.Type}\", \"{recette.Descriptif}\", \"{recette.PrixVente.ToString(new CultureInfo("en-US"))}\", {recette.Popularite})";
                     cmd.CommandText = requete;
                     cmd.ExecuteNonQuery();
 
@@ -84,9 +85,9 @@ namespace WPF_Cooking
                     cmd.CommandText = $"insert into crée values(\"{MainWindow.currentUser.Mail}\", \"{recette.Nom}\")";
                     cmd.ExecuteNonQuery();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    //MessageBox.Show(ex.Message);
+                    MessageBox.Show(ex.Message);
                 }
                 connection.Close();
 
