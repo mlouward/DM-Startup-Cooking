@@ -1,4 +1,6 @@
-﻿namespace WPF_Cooking
+﻿using System.Globalization;
+
+namespace WPF_Cooking
 {
     public class RecetteTop : Recette
     {
@@ -7,7 +9,7 @@
         }
         public override string ToString()
         {
-            return $"{Nom} : {PrixVente} cooks, {Popularite} commandes.";
+            return $"{Nom} : {PrixVente.ToString(new CultureInfo("en-US"))} cooks, {Popularite} commandes.";
         }
     }
 }

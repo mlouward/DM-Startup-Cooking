@@ -73,13 +73,21 @@ namespace WPF_Cooking
                 command.CommandText = "select cl.Nom_Client, cr.Mail_Client, sum(NombrePlats) as s from commande c join crée cr on cr.Nomrecette_Recette = c.Nomrecette_recette join client cl on cl.Mail_Client = cr.Mail_Client group by cr.Mail_Client order by s desc limit 1";
                 rdr = command.ExecuteReader();
                 rdr.Read();
-                CDRSemaine cdr = new CDRSemaine(rdr.GetString(0), rdr.GetString(1), rdr.GetInt32(2));
+                string mailCdrOr = rdr.GetString(1);
+                CDRSemaine cdr = new CDRSemaine(rdr.GetString(0), mailCdrOr, rdr.GetInt32(2));
                 TextBlockCDROr.Text += cdr;
                 rdr.Close();
 
                 //Liste des 5 meilleures recettes du CDR d'or
-
-
+                List<Recette> recettesCdrOr = new List<Recette>();
+                command.CommandText = $"select * from recette natural join crée where Mail_Client = \"{mailCdrOr}\" order by Popularité_recette desc limit 5";
+                rdr = command.ExecuteReader();
+                while (rdr.Read())
+                {
+                    recettesCdrOr.Add(new RecetteTop(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetDecimal(3), rdr.GetInt32(4)));
+                }
+                ListViewCdrOrTop5.ItemsSource = recettesCdrOr;
+                rdr.Close();
             }
             catch (Exception)
             {
@@ -128,6 +136,10 @@ namespace WPF_Cooking
         }
 
         private void BoutonReapp_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void BoutonValider_Click(object sender, RoutedEventArgs e)
         {
         }
     }
