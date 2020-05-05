@@ -26,7 +26,7 @@ namespace WPF_Cooking
 
             string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
             MySqlConnection connection = new MySqlConnection(connectionString);
-            string requete = "Select * From recette";
+            string requete = "Select * From recette where Validation_Recette = 1"; //N'affiche que les recettes validées.
             try
             {
                 connection.Open();

@@ -11,7 +11,7 @@ namespace WPF_Cooking
     /// </summary>
     public partial class FormulaireNewRecette : Window
     {
-        public static List<RecetteCDR> recettesEnAttente = new List<RecetteCDR>();
+        public static List<Recette> recettesEnAttente = new List<Recette>();
 
         public FormulaireNewRecette()
         {
@@ -34,9 +34,8 @@ namespace WPF_Cooking
                 if (TextBoxIngredient4.Text != "") ingredients.Add(new Produit(TextBoxIngredient4.Text, TextBoxQtt4.Text, unite4.Text));
 
                 RecetteCDR recette = new RecetteCDR(TextBoxNomRecette.Text, TextBoxTypeRecette.Text, TextBoxDescriptif.Text,
-                    prix, 0, MainWindow.currentUser.Mail, ingredients);
+                    prix, 0, MainWindow.currentUser.Mail, ingredients, false);
 
-                recettesEnAttente.Add(recette);
                 MessageBox.Show("Merci de votre proposition! Votre recette sera évaluée par Cooking." +
                     "\nSi elle est validée, vous pourrez la voir dans la liste des recettes disponibles très bientôt!");
 
@@ -70,7 +69,7 @@ namespace WPF_Cooking
                     }
 
                     //Recette
-                    string requete = $"insert into recette values (\"{recette.Nom}\", \"{recette.Type}\", \"{recette.Descriptif}\", \"{recette.PrixVente.ToString(new CultureInfo("en-US"))}\", {recette.Popularite})";
+                    string requete = $"insert into recette values (\"{recette.Nom}\", \"{recette.Type}\", \"{recette.Descriptif}\", \"{recette.PrixVente.ToString(new CultureInfo("en-US"))}\", {recette.Popularite}, \"{0}\")";
                     cmd.CommandText = requete;
                     cmd.ExecuteNonQuery();
 
@@ -93,10 +92,7 @@ namespace WPF_Cooking
 
                 #endregion TEMPORAIRE (test ajout recette). Cette région ira dans le portail admin.
 
-                this.Close();
-                PageCDR.p.Close();
-                PageCDR pageCDR = new PageCDR();
-                pageCDR.Show();
+                Close();
             }
         }
     }

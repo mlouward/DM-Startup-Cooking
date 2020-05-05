@@ -49,7 +49,7 @@ namespace WPF_Cooking
 
                 //Top 5 des recettes par popularité.
                 List<Recette> Top5 = new List<Recette>();
-                command.CommandText = "select * from recette order by popularité_recette desc limit 5";
+                command.CommandText = "select * from recette where Validation_Recette = 1 order by popularité_recette desc limit 5";
                 rdr = command.ExecuteReader();
                 while (rdr.Read())
                 {
@@ -59,11 +59,11 @@ namespace WPF_Cooking
                 rdr.Close();
 
                 //Toutes les recettes triées par popularité.
-                command.CommandText = "select * from recette order by popularité_recette desc";
+                command.CommandText = "select * from recette where Validation_Recette = 1 order by popularité_recette desc";
                 rdr = command.ExecuteReader();
                 while (rdr.Read())
                 {
-                    allRecettes.Add(new RecetteCDR(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetDecimal(3), rdr.GetInt32(4)));
+                    allRecettes.Add(new RecetteCDR(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetDecimal(3), rdr.GetInt32(4), Convert.ToBoolean(rdr.GetBoolean(5))));
                 }
                 ListViewToutesRecettes.ItemsSource = allRecettes;
                 rdr.Close();
@@ -79,7 +79,7 @@ namespace WPF_Cooking
                     rdr.Close();
                     //Liste des 5 meilleures recettes du CDR d'or
                     List<Recette> recettesCdrOr = new List<Recette>();
-                    command.CommandText = $"select * from recette natural join crée where Mail_Client = \"{mailCdrOr}\" order by Popularité_recette desc limit 5";
+                    command.CommandText = $"select * from recette natural join crée where Mail_Client = \"{mailCdrOr}\" and Validation_Recette = 1 order by Popularité_recette desc limit 5";
                     rdr = command.ExecuteReader();
                     while (rdr.Read())
                     {
@@ -146,6 +146,8 @@ namespace WPF_Cooking
 
         private void BoutonValider_Click(object sender, RoutedEventArgs e)
         {
+            ValiderRecettes v = new ValiderRecettes();
+            v.Show();
         }
 
         private void BoutonClients_Click(object sender, RoutedEventArgs e)

@@ -1,0 +1,37 @@
+﻿<Window x:Class="WPF_Cooking.ValiderRecettes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_Cooking"
+        mc:Ignorable="d" Height="600" Width="1200" FontSize="16"
+        WindowStartupLocation="CenterScreen" Foreground="#FF151A61" Title="Recettes"
+        FontFamily="Raleway" FontWeight="DemiBold" Icon="Resources/logo.png">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height=".14*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.ColumnSpan="3" Text="Liste des recettes en attente :" Margin="20, 0" VerticalAlignment="Bottom" />
+        <DataGrid Grid.ColumnSpan="3" x:Name="DatagridRecettesAtt" AutoGenerateColumns="True" CanUserAddRows="False"
+                  CanUserSortColumns="True" Margin="20, 10" Grid.Row="1" MinColumnWidth="150"
+                  AutoGeneratingColumn="DatagridRecettesAtt_AutoGeneratingColumn" FontSize="18" CanUserDeleteRows="False"
+                  SelectionMode="Single">
+        </DataGrid>
+        <Button x:Name="BoutonValiderRecette" Content="Valider la recette" VerticalAlignment="Bottom" Grid.Row="2"
+                HorizontalAlignment="Center" IsDefault="True" Background="#FFFFC61A" BorderBrush="#FFFFC61A"
+                Foreground="White" Height="40" Width="200" Margin="0, 10" Click="BoutonValiderRecette_Click"/>
+        <Button x:Name="BoutonIngredRecette" Content="Ingrédients de la recette" VerticalAlignment="Bottom" Grid.Row="2"
+                HorizontalAlignment="Center" Background="#FFFFC61A" BorderBrush="#FFFFC61A"
+                Foreground="White" Height="40" Width="200" Margin="0, 10" Click="BoutonIngredRecette_Click" Grid.Column="1"/>
+        <Button x:Name="BoutonSupprRecette" Content="Supprimer la recette" VerticalAlignment="Bottom" Grid.Row="2"
+                HorizontalAlignment="Center" Background="#FFFFC61A" BorderBrush="#FFFFC61A"
+                Foreground="White" Height="40" Width="200" Margin="0, 10" Click="BoutonSupprRecette_Click" Grid.Column="2"/>
+    </Grid>
+</Window>

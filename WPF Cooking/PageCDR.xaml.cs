@@ -10,7 +10,6 @@ namespace WPF_Cooking
     /// </summary>
     public partial class PageCDR : Window
     {
-        public static FormulaireNewRecette p = new FormulaireNewRecette();
         public PageCDR()
         {
             InitializeComponent();
@@ -31,7 +30,7 @@ namespace WPF_Cooking
                 while (rdr.Read())
                 {
                     //Liste pour y accéder en tant qu'objets.
-                    recettes.Add(new RecetteCDR(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetDecimal(3), rdr.GetInt32(4), rdr.GetString(5)));
+                    recettes.Add(new RecetteCDR(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetDecimal(3), rdr.GetInt32(4), rdr.GetString(6), rdr.GetBoolean(5)));
                 }
                 rdr.Close();
             }
@@ -52,6 +51,7 @@ namespace WPF_Cooking
         {
             //Ouvrir une page avec un formulaire de création de recette (Comment faire pour les ingrédients sans
             //savoir leur nombre à l'avance?)
+            FormulaireNewRecette p = new FormulaireNewRecette();
             p.Show();
         }
 
