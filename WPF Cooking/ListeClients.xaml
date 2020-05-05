@@ -1,0 +1,26 @@
+﻿<Window x:Class="WPF_Cooking.ListeClients"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_Cooking" FontSize="20"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" Foreground="#FF151A61"
+        Title="ListeClients" Height="650" Width="1000" Background="White"
+        FontFamily="Raleway" FontWeight="DemiBold" Icon="Resources/logo.png">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height=".12*" />
+        </Grid.RowDefinitions>
+        <TextBlock Text="Liste des clients de Cooking :" Margin="20, 0" VerticalAlignment="Bottom" />
+        <DataGrid x:Name="DataGridListeClients" AutoGenerateColumns="True" CanUserAddRows="False" CanUserReorderColumns="False"
+                  CanUserSortColumns="True" Margin="20, 10" Grid.Row="1" MinColumnWidth="150"
+                  AutoGeneratingColumn="DataGridListeClients_AutoGeneratingColumn" FontSize="18" CanUserDeleteRows="False"
+                  SelectionMode="Single">
+        </DataGrid>
+        <Button x:Name="BoutonSupprClient" Content="Supprimer le client" VerticalAlignment="Bottom" Grid.Row="2"
+                HorizontalAlignment="Center" IsDefault="True" Background="#FFFFC61A" BorderBrush="#FFFFC61A"
+                Foreground="White" Height="40" Width="200" Margin="0, 10" Click="BoutonSupprClient_Click" />
+    </Grid>
+</Window>

@@ -134,6 +134,9 @@
     <Compile Include="FormulaireNewRecette.xaml.cs">
       <DependentUpon>FormulaireNewRecette.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ListeClients.xaml.cs">
+      <DependentUpon>ListeClients.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PageCDR.xaml.cs">
       <DependentUpon>PageCDR.xaml</DependentUpon>
     </Compile>
@@ -153,6 +156,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="FormulaireNewRecette.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ListeClients.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -224,12 +231,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\poulet.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\salad.jpeg" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

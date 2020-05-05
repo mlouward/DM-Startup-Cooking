@@ -37,9 +37,8 @@ namespace WPF_Cooking
                 connection.Open();
                 MySqlCommand command = new MySqlCommand(requete, connection);
                 MySqlDataReader rdr = command.ExecuteReader();
-                rdr.Read();
                 //Si aucune commande n'a été passée dans la derniere semaine
-                if (rdr.IsDBNull(0)) TextBlockCDR.Text = "Aucune commande passée dans la dernière semaine";
+                if (!rdr.Read()) TextBlockCDR.Text = "Aucune commande passée dans la dernière semaine.";
                 else
                 {
                     //sinon, affiche le CDR de la semaine
@@ -59,8 +58,8 @@ namespace WPF_Cooking
                 ListViewTop5.ItemsSource = Top5;
                 rdr.Close();
 
-                //Toutes les recettes
-                command.CommandText = "select * from recette order by popularité_recette asc";
+                //Toutes les recettes triées par popularité.
+                command.CommandText = "select * from recette order by popularité_recette desc";
                 rdr = command.ExecuteReader();
                 while (rdr.Read())
                 {
@@ -72,26 +71,32 @@ namespace WPF_Cooking
                 //CDR d'Or (le plus de commandes)
                 command.CommandText = "select cl.Nom_Client, cr.Mail_Client, sum(NombrePlats) as s from commande c join crée cr on cr.Nomrecette_Recette = c.Nomrecette_recette join client cl on cl.Mail_Client = cr.Mail_Client group by cr.Mail_Client order by s desc limit 1";
                 rdr = command.ExecuteReader();
-                rdr.Read();
-                string mailCdrOr = rdr.GetString(1);
-                CDRSemaine cdr = new CDRSemaine(rdr.GetString(0), mailCdrOr, rdr.GetInt32(2));
-                TextBlockCDROr.Text += cdr;
-                rdr.Close();
-
-                //Liste des 5 meilleures recettes du CDR d'or
-                List<Recette> recettesCdrOr = new List<Recette>();
-                command.CommandText = $"select * from recette natural join crée where Mail_Client = \"{mailCdrOr}\" order by Popularité_recette desc limit 5";
-                rdr = command.ExecuteReader();
-                while (rdr.Read())
+                if (rdr.Read())
                 {
-                    recettesCdrOr.Add(new RecetteTop(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetDecimal(3), rdr.GetInt32(4)));
+                    string mailCdrOr = rdr.GetString(1);
+                    CDRSemaine cdr = new CDRSemaine(rdr.GetString(0), mailCdrOr, rdr.GetInt32(2));
+                    TextBlockCDROr.Text += cdr;
+                    rdr.Close();
+                    //Liste des 5 meilleures recettes du CDR d'or
+                    List<Recette> recettesCdrOr = new List<Recette>();
+                    command.CommandText = $"select * from recette natural join crée where Mail_Client = \"{mailCdrOr}\" order by Popularité_recette desc limit 5";
+                    rdr = command.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        recettesCdrOr.Add(new RecetteTop(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetDecimal(3), rdr.GetInt32(4)));
+                    }
+                    ListViewCdrOrTop5.ItemsSource = recettesCdrOr;
+                    rdr.Close();
                 }
-                ListViewCdrOrTop5.ItemsSource = recettesCdrOr;
-                rdr.Close();
+                else
+                {
+                    TextBlockCDROr.Text = "Aucun cdr d'or.";
+                }
+
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.Message);
             }
             connection.Close();
         }
@@ -102,7 +107,7 @@ namespace WPF_Cooking
                 MessageBox.Show("Veuillez sélectionner une recette à supprimer.");
             else
             {
-                #region Suppression de la recette de la BDD
+                #region Suppression sécurisée de la recette de la BDD
 
                 string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
                 MySqlConnection connection = new MySqlConnection(connectionString);
@@ -120,7 +125,7 @@ namespace WPF_Cooking
                         MySqlCommand cmd = new MySqlCommand(requete, connection);
                         cmd.ExecuteNonQuery();
                         //On actualise la liste des recettes.
-                        this.Close();
+                        Close();
                         Administration administration = new Administration();
                         administration.Show();
                     }
@@ -131,7 +136,7 @@ namespace WPF_Cooking
                 }
                 connection.Close();
 
-                #endregion Suppression de la recette de la BDD
+                #endregion Suppression sécurisée de la recette de la BDD
             }
         }
 
@@ -141,6 +146,12 @@ namespace WPF_Cooking
 
         private void BoutonValider_Click(object sender, RoutedEventArgs e)
         {
+        }
+
+        private void BoutonClients_Click(object sender, RoutedEventArgs e)
+        {
+            ListeClients lc = new ListeClients();
+            lc.Show();
         }
     }
 }

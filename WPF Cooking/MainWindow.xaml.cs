@@ -16,8 +16,6 @@ namespace WPF_Cooking
         public MainWindow()
         {
             InitializeComponent();
-            TextBoxMail.Text = "admin";
-            PasswordBoxMdp.Password = "Maxime";
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -37,7 +35,7 @@ namespace WPF_Cooking
             p.Show();
         }
 
-        private void LogIn_Click(object sender, RoutedEventArgs e)
+        public void LogIn_Click(object sender, RoutedEventArgs e)
         {
             string mail = TextBoxMail.Text;
             string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";

@@ -23,7 +23,7 @@ namespace WPF_Cooking
             {
                 prixTot += recette.Key.PrixVente * recette.Value;
             }
-            TextBlockPrix.Text = $"{prixTot.ToString(new CultureInfo("en-US"))} cook(s)";
+            TextBlockPrix.Text = $"Prix total : {prixTot.ToString(new CultureInfo("en-US"))} cook(s)";
             TextBlockSolde.Text = $"{MainWindow.currentUser.Solde.ToString(new CultureInfo("en-US"))} cook(s)";
             TextBlockPrixBis.Text = $"- {prixTot.ToString(new CultureInfo("en-US"))} cook(s)";
             soldeRestant = MainWindow.currentUser.Solde - prixTot;
@@ -47,6 +47,7 @@ namespace WPF_Cooking
                 MySqlCommand command = connection.CreateCommand();
                 command.CommandText = $"Update client Set Solde_Client=\"{soldeRestant.ToString(new CultureInfo("en-US"))}\" Where Mail_Client=\"{MainWindow.currentUser.Mail}\"";
                 command.ExecuteNonQuery();
+                MainWindow.currentUser.Solde = soldeRestant; 
 
                 //Ajout dans la table "commande" pour chaque recette.
                 foreach (KeyValuePair<Recette, int> item in ListeRecettes.compteRecettes)
@@ -150,10 +151,22 @@ namespace WPF_Cooking
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
             MySqlCommand command = connection.CreateCommand();
-            command.CommandText = $"Update client Set Solde_Client={MainWindow.currentUser.Solde + 100} Where Mail_Client=\"{MainWindow.currentUser.Mail}\"";
+            command.CommandText = $"Update client Set Solde_Client = Solde_Client + 100 Where Mail_Client=\"{MainWindow.currentUser.Mail}\"";
             MainWindow.currentUser.Solde += 100;
             command.ExecuteNonQuery();
             connection.Close();
+
+            TextBlockSolde.Text = null;
+            TextBlockSolde.Text = $"{MainWindow.currentUser.Solde.ToString(new CultureInfo("en-US"))} cook(s)";
+
+            TextBlockPrixBis.Text = null;
+            TextBlockPrixBis.Text = $"- {prixTot.ToString(new CultureInfo("en-US"))} cook(s)";
+
+            soldeRestant = 0;
+            soldeRestant = MainWindow.currentUser.Solde - prixTot;
+
+            TextBlockSoldeRestant.Text = $"Solde restant : {soldeRestant.ToString(new CultureInfo("en-US"))} cook(s)";
+
             MessageBox.Show($"+100 COOKS");
         }
     }

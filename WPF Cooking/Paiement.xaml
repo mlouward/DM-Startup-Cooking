@@ -22,10 +22,8 @@
         </Grid.RowDefinitions>
         <TextBlock FontSize="20" Text="Récapitulatif de votre commande :" VerticalAlignment="Bottom" />
         <ListBox Grid.Row="1" Name="listBoxRecap" Grid.RowSpan="3" />
-        <TextBlock Grid.Row="4" FontSize="20" VerticalAlignment="Center" Text="Prix total :"
-                   HorizontalAlignment="Center" TextAlignment="Center" Margin="0, 0, 100, 0" />
-        <TextBlock Grid.Row="4" FontSize="20" VerticalAlignment="Center" Name="TextBlockPrix"
-                   HorizontalAlignment="Center" TextAlignment="Center" Margin="100, 0, 0, 0" />
+        <TextBlock Grid.Row="4" FontSize="20" VerticalAlignment="Center" Name="TextBlockPrix" 
+                   HorizontalAlignment="Center" />
 
         <TextBlock Grid.Column="1" Text="Solde Cook : " FontSize="24" VerticalAlignment="Center"
                    HorizontalAlignment="Left" Margin="20" TextAlignment="Center" />
@@ -36,8 +34,10 @@
         <TextBlock Grid.Row="2" Grid.Column="1" Text="Solde restant" FontSize="20" Name="TextBlockSoldeRestant"
                    VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" />
         <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Margin="20">
-            <Button Content="Payer" Height="30" Width ="120" VerticalAlignment="Center" Margin="37" Click="ButtonPayer_Click" />
-            <Button Content="Recharger" Height="30" Width ="120" Margin="37" Click="ButtonRecharger_Click" />
+            <Button Content="Payer" Height="30" Width ="120" VerticalAlignment="Center" Margin="37" Click="ButtonPayer_Click"
+                    Background="#FFFFC61A" BorderBrush="#FFFFC61A" Foreground="White" />
+            <Button Content="Recharger" Height="30" Width ="120" Margin="37" Click="ButtonRecharger_Click"
+                    Background="#FFFFC61A" BorderBrush="#FFFFC61A" Foreground="White" />
         </StackPanel>
     </Grid>
 </Window>

@@ -30,10 +30,9 @@
             <PasswordBox x:Name="PasswordBoxMdp" Margin="20" MaxHeight="29" FontSize="20" />
         </StackPanel>
 
-        <Button Grid.Column="0" Grid.Row="2" Content="S'identifier" Height="30" Cursor="Hand"
-                FontSize="20" Background="LightGray" OpacityMask="Black" Name="LogIn"
-                MaxHeight="50" VerticalAlignment="Top" Click="LogIn_Click" Margin="30,20,30,0"
-                MaxWidth="294" IsDefault="True" />
+        <Button Grid.Column="0" Grid.Row="2" Content="S'identifier" Height="30" Cursor="Hand" FontSize="18"
+                Name="LogIn" MaxHeight="50" VerticalAlignment="Top" Click="LogIn_Click" Margin="30,20,30,0"
+                MaxWidth="294" IsDefault="True" Background="#FFFFC61A" BorderBrush="#FFFFC61A" Foreground="White" />
 
         <Grid Grid.Row="2" Grid.Column="0">
             <Grid.ColumnDefinitions>
