@@ -26,23 +26,15 @@ namespace WPF_Cooking
         }
 
         public Recette(string nom, string type, string descriptif, decimal prixVente, int popularite, string mailCreateur)
+            : this(nom, type, descriptif, prixVente, popularite)
         {
-            Nom = nom;
-            Type = type;
-            Descriptif = descriptif;
-            PrixVente = prixVente;
-            Popularite = popularite;
             Remuneration = popularite < 50 ? 2 : 4;
             MailCreateur = mailCreateur;
         }
 
         public Recette(string nom, string type, string descriptif, decimal prixVente, int popularite, bool validation)
+             : this(nom, type, descriptif, prixVente, popularite)
         {
-            Nom = nom;
-            Type = type;
-            Descriptif = descriptif;
-            PrixVente = prixVente;
-            Popularite = popularite;
             Remuneration = popularite < 50 ? 2 : 4;
             Validation = validation;
         }

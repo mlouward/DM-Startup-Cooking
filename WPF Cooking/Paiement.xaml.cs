@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 
 namespace WPF_Cooking
@@ -85,14 +86,14 @@ namespace WPF_Cooking
                     rdr.Read();
                     int pop = rdr.GetInt32(0);
                     rdr.Close();
-                    if (pop > 10 && item.Key.Popularite <= 10)
+                    if (pop > 10 && item.Key.Popularite <= 10) // Si le nb de commandes était < 10 et mtnt est > 10
                     {
                         command3.CommandText = $"Update recette Set PrixVente_Recette=PrixVente_Recette + 2 Where NomRecette_Recette=\"{item.Key.Nom}\"";
                         command3.ExecuteNonQuery();
                     }
-                    else if (pop > 50 && item.Key.Popularite <= 50)
+                    if (pop > 50 && item.Key.Popularite <= 50) // Idem pour 50
                     {
-                        command3.CommandText = $"Update recette Set PrixVente_Recette=PrixVente_Recette + 5 Where NomRecette_Recette=\"{item.Key.Nom}\"";
+                        command3.CommandText = $"Update recette Set PrixVente_Recette=PrixVente_Recette + 3 Where NomRecette_Recette=\"{item.Key.Nom}\"";
                         command3.ExecuteNonQuery();
                     }
                 }
@@ -143,6 +144,9 @@ namespace WPF_Cooking
                 connection5.Close();
                 Close(); // ferme la fenêtre de paiement.
             }
+            List<Produit> l = new List<Produit>() { new Produit("a", 1, "g"), new Produit("a", 2, "m") };
+            l.Count(x => x.Nom == "a" && x.Quantite == 1);
+
         }
 
         private void ButtonRecharger_Click(object sender, RoutedEventArgs e)
