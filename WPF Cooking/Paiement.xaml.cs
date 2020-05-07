@@ -47,7 +47,7 @@ namespace WPF_Cooking
                 MySqlCommand command = connection.CreateCommand();
                 command.CommandText = $"Update client Set Solde_Client=\"{soldeRestant.ToString(new CultureInfo("en-US"))}\" Where Mail_Client=\"{MainWindow.currentUser.Mail}\"";
                 command.ExecuteNonQuery();
-                MainWindow.currentUser.Solde = soldeRestant; 
+                MainWindow.currentUser.Solde = soldeRestant;
 
                 //Ajout dans la table "commande" pour chaque recette.
                 foreach (KeyValuePair<Recette, int> item in ListeRecettes.compteRecettes)
@@ -134,12 +134,14 @@ namespace WPF_Cooking
                         rdr.Read();
                         int qtt = rdr.GetInt32(0);
                         rdr.Close();
-                        command5.CommandText = $"update produit set StockActuel_Produit = StockActuel_Produit - {qtt} where NomProduit_Produit=\"{i}\"";
+                        // date de dernière commande actualisée à aujourd'hui.
+                        string date = DateTime.Now.Year.ToString("0000") + DateTime.Now.Month.ToString("00") + DateTime.Now.Day.ToString("00");
+                        command5.CommandText = $"update produit set StockActuel_Produit = StockActuel_Produit - {qtt}, DateDerniereCommande_Produit = \"{date}\" where NomProduit_Produit=\"{i}\"";
                         command5.ExecuteNonQuery();
                     }
                 }
                 connection5.Close();
-                Close(); //ferme la fenêtre de paiement.
+                Close(); // ferme la fenêtre de paiement.
             }
         }
 

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Media3D;
 
 namespace WPF_Cooking
 {
@@ -12,10 +13,12 @@ namespace WPF_Cooking
     public partial class ValiderRecettes : Window
     {
         private List<Recette> listeRecettes = new List<Recette>();
+        public static Recette selectionne = null;
 
         public ValiderRecettes()
         {
             InitializeComponent();
+            DataContext = this;
 
             string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
             MySqlConnection connection = new MySqlConnection(connectionString);
@@ -36,12 +39,13 @@ namespace WPF_Cooking
             {
                 MessageBox.Show(ex.Message);
             }
-
+            connection.Close();
             DatagridRecettesAtt.ItemsSource = listeRecettes;
         }
 
         private void DatagridRecettesAtt_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
+            // On n'affiche pas ces colonnes
             if (e.Column.Header.ToString() == "Ingredients" || e.Column.Header.ToString() == "Validation" || e.Column.Header.ToString() == "MailCreateur")
             {
                 e.Column.Visibility = Visibility.Hidden;
@@ -103,6 +107,7 @@ namespace WPF_Cooking
                     listeRecettes.Remove(selectionne);
 
                     #region Actualise la valeur de Validation.
+
                     //Actualise les tables Recette
                     string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
                     MySqlConnection connection = new MySqlConnection(connectionString);
@@ -123,7 +128,7 @@ namespace WPF_Cooking
                     }
                     connection.Close();
 
-                    #endregion
+                    #endregion Actualise la valeur de Validation.
                 }
             }
             DatagridRecettesAtt.ItemsSource = null;
@@ -132,6 +137,14 @@ namespace WPF_Cooking
 
         private void BoutonIngredRecette_Click(object sender, RoutedEventArgs e)
         {
+            selectionne = (Recette)DatagridRecettesAtt.SelectedItem;
+            if (selectionne is null)
+                MessageBox.Show("Aucune recette selectionnée");
+            else
+            {
+                IngredientsRecette i = new IngredientsRecette();
+                i.Show();
+            }
         }
     }
 }

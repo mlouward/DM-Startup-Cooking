@@ -28,10 +28,10 @@ namespace WPF_Cooking
             {
                 List<Produit> ingredients = new List<Produit>();
 
-                if (TextBoxIngredient1.Text != "") ingredients.Add(new Produit(TextBoxIngredient1.Text, TextBoxQtt1.Text, unite1.Text));
-                if (TextBoxIngredient2.Text != "") ingredients.Add(new Produit(TextBoxIngredient2.Text, TextBoxQtt2.Text, unite2.Text));
-                if (TextBoxIngredient3.Text != "") ingredients.Add(new Produit(TextBoxIngredient3.Text, TextBoxQtt3.Text, unite3.Text));
-                if (TextBoxIngredient4.Text != "") ingredients.Add(new Produit(TextBoxIngredient4.Text, TextBoxQtt4.Text, unite4.Text));
+                if (TextBoxIngredient1.Text != "") ingredients.Add(new Produit(TextBoxIngredient1.Text, int.Parse(TextBoxQtt1.Text), unite1.Text));
+                if (TextBoxIngredient2.Text != "") ingredients.Add(new Produit(TextBoxIngredient2.Text, int.Parse(TextBoxQtt2.Text), unite2.Text));
+                if (TextBoxIngredient3.Text != "") ingredients.Add(new Produit(TextBoxIngredient3.Text, int.Parse(TextBoxQtt3.Text), unite3.Text));
+                if (TextBoxIngredient4.Text != "") ingredients.Add(new Produit(TextBoxIngredient4.Text, int.Parse(TextBoxQtt4.Text), unite4.Text));
 
                 RecetteCDR recette = new RecetteCDR(TextBoxNomRecette.Text, TextBoxTypeRecette.Text, TextBoxDescriptif.Text,
                     prix, 0, MainWindow.currentUser.Mail, ingredients, false);

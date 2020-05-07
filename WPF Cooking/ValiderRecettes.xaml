@@ -22,16 +22,16 @@
         <DataGrid Grid.ColumnSpan="3" x:Name="DatagridRecettesAtt" AutoGenerateColumns="True" CanUserAddRows="False"
                   CanUserSortColumns="True" Margin="20, 10" Grid.Row="1" MinColumnWidth="150"
                   AutoGeneratingColumn="DatagridRecettesAtt_AutoGeneratingColumn" FontSize="18" CanUserDeleteRows="False"
-                  SelectionMode="Single">
-        </DataGrid>
+                  SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True">
+                    </DataGrid>
         <Button x:Name="BoutonValiderRecette" Content="Valider la recette" VerticalAlignment="Bottom" Grid.Row="2"
                 HorizontalAlignment="Center" IsDefault="True" Background="#FFFFC61A" BorderBrush="#FFFFC61A"
-                Foreground="White" Height="40" Width="200" Margin="0, 10" Click="BoutonValiderRecette_Click"/>
+                Foreground="White" Height="40" Width="200" Margin="0, 10" Click="BoutonValiderRecette_Click" />
         <Button x:Name="BoutonIngredRecette" Content="Ingrédients de la recette" VerticalAlignment="Bottom" Grid.Row="2"
                 HorizontalAlignment="Center" Background="#FFFFC61A" BorderBrush="#FFFFC61A"
-                Foreground="White" Height="40" Width="200" Margin="0, 10" Click="BoutonIngredRecette_Click" Grid.Column="1"/>
+                Foreground="White" Height="40" Width="200" Margin="0, 10" Click="BoutonIngredRecette_Click" Grid.Column="1" />
         <Button x:Name="BoutonSupprRecette" Content="Supprimer la recette" VerticalAlignment="Bottom" Grid.Row="2"
                 HorizontalAlignment="Center" Background="#FFFFC61A" BorderBrush="#FFFFC61A"
-                Foreground="White" Height="40" Width="200" Margin="0, 10" Click="BoutonSupprRecette_Click" Grid.Column="2"/>
+                Foreground="White" Height="40" Width="200" Margin="0, 10" Click="BoutonSupprRecette_Click" Grid.Column="2" />
     </Grid>
 </Window>

@@ -4,11 +4,11 @@ namespace WPF_Cooking
 {
     public class RecetteCDR : Recette
     {
-
         public RecetteCDR(string nom, string type, string descriptif, decimal prixVente, int popularite, string mailCreateur)
             : base(nom, type, descriptif, prixVente, popularite, mailCreateur)
         {
         }
+
         public RecetteCDR(string nom, string type, string descriptif, decimal prixVente, int popularite, string mailCreateur, bool val)
             : this(nom, type, descriptif, prixVente, popularite, mailCreateur)
         {
@@ -20,6 +20,7 @@ namespace WPF_Cooking
         {
             Validation = val;
         }
+
         public RecetteCDR(string nom, string type, string descriptif, decimal prixVente, int popularite, string mailCreateur, List<Produit> ingredients, bool v)
             : this(nom, type, descriptif, prixVente, popularite, mailCreateur)
         {
@@ -36,6 +37,7 @@ namespace WPF_Cooking
             string val = Validation ? "Validée" : "En attente";
             return base.ToString() + $", commandée {Popularite} fois ({val})";
         }
+
         public string AfficherIngrédients()
         {
             string s = "";

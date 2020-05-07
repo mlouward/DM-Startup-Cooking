@@ -92,7 +92,6 @@ namespace WPF_Cooking
                 {
                     TextBlockCDROr.Text = "Aucun cdr d'or.";
                 }
-
             }
             catch (Exception ex)
             {

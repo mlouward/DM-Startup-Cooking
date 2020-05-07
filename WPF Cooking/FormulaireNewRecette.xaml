@@ -45,9 +45,9 @@
             <TextBlock Text="Quantité :" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0, 0, 0" />
             <TextBox x:Name="TextBoxQtt1" Width="100" Height="26" Grid.Row="1" HorizontalAlignment="Left" Margin="100, 0, 0, 0" FontSize="18" />
             <ComboBox x:Name="unite1" Width="70" Height="22" Grid.Row="1" HorizontalAlignment="Right" FontSize="12">
-                <ComboBoxItem Content="g"/>
-                <ComboBoxItem Content="mL"/>
-                <ComboBoxItem Content=" "/>
+                <ComboBoxItem Content="g" />
+                <ComboBoxItem Content="mL" />
+                <ComboBoxItem Content=" " />
             </ComboBox>
         </Grid>
 
@@ -62,9 +62,9 @@
             <TextBlock Text="Quantité :" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0, 0, 0" />
             <TextBox x:Name="TextBoxQtt2" Width="100" Height="26" Grid.Row="2" HorizontalAlignment="Left" Margin="100, 0, 0, 0" FontSize="18" />
             <ComboBox x:Name="unite2" Width="70" Height="22" Grid.Row="2" HorizontalAlignment="Right" FontSize="12">
-                <ComboBoxItem Content="g"/>
-                <ComboBoxItem Content="mL"/>
-                <ComboBoxItem Content=" "/>
+                <ComboBoxItem Content="g" />
+                <ComboBoxItem Content="mL" />
+                <ComboBoxItem Content=" " />
             </ComboBox>
         </Grid>
 
@@ -79,9 +79,9 @@
             <TextBlock Text="Quantité :" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0, 0, 0" />
             <TextBox x:Name="TextBoxQtt3" Width="100" Height="26" Grid.Row="3" HorizontalAlignment="Left" Margin="100, 0, 0, 0" FontSize="18" />
             <ComboBox x:Name="unite3" Width="70" Height="22" Grid.Row="3" HorizontalAlignment="Right" FontSize="12">
-                <ComboBoxItem Content="g"/>
-                <ComboBoxItem Content="mL"/>
-                <ComboBoxItem Content=" "/>
+                <ComboBoxItem Content="g" />
+                <ComboBoxItem Content="mL" />
+                <ComboBoxItem Content=" " />
             </ComboBox>
         </Grid>
 
@@ -96,15 +96,15 @@
             <TextBlock Text="Quantité :" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0, 0, 0" />
             <TextBox x:Name="TextBoxQtt4" Width="100" Height="26" Grid.Row="4" HorizontalAlignment="Left" Margin="100, 0, 0, 0" FontSize="18" />
             <ComboBox x:Name="unite4" Width="70" Height="22" Grid.Row="4" HorizontalAlignment="Right" FontSize="12">
-                <ComboBoxItem Content="g"/>
-                <ComboBoxItem Content="mL"/>
-                <ComboBoxItem Content=" "/>
+                <ComboBoxItem Content="g" />
+                <ComboBoxItem Content="mL" />
+                <ComboBoxItem Content=" " />
             </ComboBox>
         </Grid>
 
-        <TextBlock Grid.Row="6" Text="Descriptif :" VerticalAlignment="Center" HorizontalAlignment="Right" 
+        <TextBlock Grid.Row="6" Text="Descriptif :" VerticalAlignment="Center" HorizontalAlignment="Right"
                    Margin="0, 0, 10, 0" />
-        <TextBox x:Name="TextBoxDescriptif" Grid.Row="6" Grid.Column="1" Margin="10" TextWrapping="Wrap"/>
+        <TextBox x:Name="TextBoxDescriptif" Grid.Row="6" Grid.Column="1" Margin="10" TextWrapping="Wrap" />
 
         <TextBlock Grid.Row="7" Text="Prix :" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10, 0" />
         <TextBox x:Name="TextBoxPrixRecette" Grid.Row="7" Grid.Column="1" Width="40" Height="26" FontSize="18"

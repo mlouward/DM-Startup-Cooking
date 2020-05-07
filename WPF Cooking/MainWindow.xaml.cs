@@ -16,6 +16,8 @@ namespace WPF_Cooking
         public MainWindow()
         {
             InitializeComponent();
+            TextBoxMail.Text = "admin";
+            PasswordBoxMdp.Password= "Maxime";
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -62,74 +64,73 @@ namespace WPF_Cooking
                 resultatNom = rdr.GetString(3);
 
                 rdr.Close();
+                // Si nom d'utilisateur pas dans la base de données
+                if (resultatMdp == "") MessageBox.Show($"L'adresse mail '{mail}' n'appartient pas à la base de données. Veuillez créer un compte.");
+
+                // Si mdp incorrect
+                else if (resultatMdp != PasswordBoxMdp.Password) MessageBox.Show($"Le mot de passe entré ne correspond pas à l'adresse '{mail}'");
+
+                // Si tout est correct
+                else
+                {
+                    if (resultatStatut == "client")
+                    {
+                        currentUser.Mail = TextBoxMail.Text;
+                        currentUser.Solde = solde;
+                        currentUser.Nom = resultatNom;
+
+                        ListeRecettes listeRecettes = new ListeRecettes();
+                        listeRecettes.Show();
+                    }
+                    else if (resultatStatut == "cdr")
+                    {
+                        currentUser.Mail = TextBoxMail.Text;
+                        currentUser.Solde = solde;
+                        currentUser.Nom = resultatNom;
+                        //Un cdr est un client, donc il peut accéder au portail client ainsi qu'au portail CDR.
+                        var res = MessageBox.Show($"Bonjour {currentUser.Nom}! Voulez-vous vous accéder au portail Client? Sinon, vous ouvrirez le portail CDR.",
+                            "Choix de portail", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (res == MessageBoxResult.Yes)
+                        {
+                            ListeRecettes listeRecettes = new ListeRecettes();
+                            listeRecettes.Show();
+                        }
+                        else
+                        {
+                            PageCDR pageCdr = new PageCDR();
+                            pageCdr.Show();
+                        }
+                    }
+                    else if (resultatStatut == "admin")
+                    {
+                        currentUser.Mail = TextBoxMail.Text;
+                        currentUser.Solde = solde;
+                        currentUser.Nom = resultatNom;
+                        //Un admin est un client, donc il peut accéder au portail client ainsi qu'au portail administration.
+                        var res = MessageBox.Show($"Bonjour {currentUser.Nom}! Voulez-vous vous accéder au portail Client? Sinon, vous ouvrirez le portail ADMIN.",
+                            "Choix de portail", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (res == MessageBoxResult.Yes)
+                        {
+                            ListeRecettes listeRecettes = new ListeRecettes();
+                            listeRecettes.Show();
+                        }
+                        else
+                        {
+                            Administration admin = new Administration();
+                            admin.Show();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Le statut \"{resultatStatut}\" n'est pas reconnu.");
+                    }
+                }
             }
             catch (Exception)
             {
-                MessageBox.Show("La connection avec la BDD a échoué."); //Pourquoi s'affiche tout le temps?
+                MessageBox.Show("La connection avec la BDD a échoué.");
             }
             connection.Close();
-
-            // Si nom d'utilisateur pas dans la base de données
-            if (resultatMdp == "") MessageBox.Show($"L'adresse mail '{mail}' n'appartient pas à la base de données. Veuillez créer un compte.");
-
-            // Si mdp incorrect
-            else if (resultatMdp != PasswordBoxMdp.Password) MessageBox.Show($"Le mot de passe entré ne correspond pas à l'adresse '{mail}'");
-
-            // Si tout est correct
-            else
-            {
-                if (resultatStatut == "client")
-                {
-                    currentUser.Mail = TextBoxMail.Text;
-                    currentUser.Solde = solde;
-                    currentUser.Nom = resultatNom;
-
-                    ListeRecettes listeRecettes = new ListeRecettes();
-                    listeRecettes.Show();
-                }
-                else if (resultatStatut == "cdr")
-                {
-                    currentUser.Mail = TextBoxMail.Text;
-                    currentUser.Solde = solde;
-                    currentUser.Nom = resultatNom;
-                    //Un cdr est un client, donc il peut accéder au portail client ainsi qu'au portail CDR.
-                    var res = MessageBox.Show($"Bonjour {currentUser.Nom}! Voulez-vous vous accéder au portail Client? Sinon, vous ouvrirez le portail CDR.",
-                        "Choix de portail", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if (res == MessageBoxResult.Yes)
-                    {
-                        ListeRecettes listeRecettes = new ListeRecettes();
-                        listeRecettes.Show();
-                    }
-                    else
-                    {
-                        PageCDR pageCdr = new PageCDR();
-                        pageCdr.Show();
-                    }
-                }
-                else if (resultatStatut == "admin")
-                {
-                    currentUser.Mail = TextBoxMail.Text;
-                    currentUser.Solde = solde;
-                    currentUser.Nom = resultatNom;
-                    //Un admin est un client, donc il peut accéder au portail client ainsi qu'au portail administration.
-                    var res = MessageBox.Show($"Bonjour {currentUser.Nom}! Voulez-vous vous accéder au portail Client? Sinon, vous ouvrirez le portail ADMIN.",
-                        "Choix de portail", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if (res == MessageBoxResult.Yes)
-                    {
-                        ListeRecettes listeRecettes = new ListeRecettes();
-                        listeRecettes.Show();
-                    }
-                    else
-                    {
-                        Administration admin = new Administration();
-                        admin.Show();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show($"Le statut \"{resultatStatut}\" n'est pas reconnu.");
-                }
-            }
         }
     }
 }
