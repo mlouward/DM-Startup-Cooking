@@ -32,7 +32,7 @@
                 </DataGridTextColumn>
                 <DataGridTextColumn Width="70" Binding="{Binding StockActuel}">
                     <DataGridTextColumn.Header>
-                        <TextBlock Text="En stock"/>
+                        <TextBlock Text="En stock" />
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
                 <DataGridTextColumn Width="85" Binding="{Binding StockMin}">

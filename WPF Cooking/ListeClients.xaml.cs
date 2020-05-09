@@ -15,7 +15,7 @@ namespace WPF_Cooking
         /// <summary>
         /// Stocke les clients.
         /// </summary>
-        static List<Client> listeClients = new List<Client>();
+        private static List<Client> listeClients = new List<Client>();
 
         public ListeClients()
         {
@@ -40,6 +40,7 @@ namespace WPF_Cooking
                 MessageBox.Show(ex.Message);
             }
         }
+
         /// <summary>
         /// Retire la colonne des mots de passe et rend la colonne Statut plus petite.
         /// </summary>

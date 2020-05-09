@@ -33,8 +33,8 @@
         </StackPanel>
 
         <Button Grid.Column="0" Grid.Row="3" Content="Envoyer" Height="30" Cursor="Hand"
-                FontSize="20" OpacityMask="Black" Name="Envoyer" MaxHeight="50" 
+                FontSize="20" OpacityMask="Black" Name="Envoyer" MaxHeight="50"
                 MaxWidth="294" VerticalAlignment="Top" Click="Envoyer_Click"
-                IsDefault="True" Background="#FFFFC61A" BorderBrush="#FFFFC61A" Foreground="White"/>
+                IsDefault="True" Background="#FFFFC61A" BorderBrush="#FFFFC61A" Foreground="White" />
     </Grid>
 </Window>

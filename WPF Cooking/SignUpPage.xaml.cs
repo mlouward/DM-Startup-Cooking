@@ -15,8 +15,9 @@ namespace WPF_Cooking
         {
             InitializeComponent();
         }
+
         /// <summary>
-        /// Vérifies si le compte n'existe pas déjà et si le mdp est correct, 
+        /// Vérifies si le compte n'existe pas déjà et si le mdp est correct,
         /// et enregistre le nouveau client dans la bdd le cas échéant.
         /// </summary>
         /// <param name="sender"></param>

@@ -126,7 +126,7 @@ namespace WPF_Cooking
                     }
                     connection.Close();
 
-                    #endregion Actualise la valeur de Validation.
+                    #endregion Actualise la valeur de Validation à 'True' dans la BDD.
                 }
             }
             DatagridRecettesAtt.ItemsSource = null;

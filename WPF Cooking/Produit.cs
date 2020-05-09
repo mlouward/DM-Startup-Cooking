@@ -32,6 +32,7 @@ namespace WPF_Cooking
         public Produit()
         {
         }
+
         public Produit(string nom)
         {
             Nom = nom;

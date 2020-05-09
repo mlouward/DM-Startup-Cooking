@@ -32,7 +32,7 @@ namespace WPF_Cooking
             recettesNoms.Clear(); // Remet le panier à 0.
             compteRecettes.Clear(); // Remet le compte des recettes à 0.
             List<Recette> recettes = new List<Recette>();
-            
+
             #region Récupérer les recettes de la BDD
 
             string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
