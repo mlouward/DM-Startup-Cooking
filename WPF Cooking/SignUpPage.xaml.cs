@@ -5,7 +5,9 @@ using System.Windows;
 namespace WPF_Cooking
 {
     /// <summary>
-    /// Logique d'interaction pour SignUpPage.xaml
+    /// Page d'inscription pour les nouveaux clients Cooking.
+    /// Le choix entre CDR et Client est laissé libre à l'utilisateur
+    /// quand il crée son compte.
     /// </summary>
     public partial class SignUpPage : Window
     {
@@ -13,7 +15,12 @@ namespace WPF_Cooking
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Vérifies si le compte n'existe pas déjà et si le mdp est correct, 
+        /// et enregistre le nouveau client dans la bdd le cas échéant.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SignUp_Click(object sender, RoutedEventArgs e)
         {
             string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";

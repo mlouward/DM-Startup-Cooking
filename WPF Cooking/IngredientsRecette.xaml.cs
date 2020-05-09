@@ -20,6 +20,7 @@ namespace WPF_Cooking
             InitializeComponent();
             // On récupère la recette séléctionnée dans la fenêtre précédente.
             Recette currentRecette = ValiderRecettes.selectionne;
+            Title = $"Ingrédients de {currentRecette.Nom}";
             string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
             MySqlConnection connection = new MySqlConnection(connectionString);
             string requete = $"select p.*, c.QttProduit_Compose from produit p natural join compose c where c.nomRecette_recette = \"{currentRecette.Nom}\"";

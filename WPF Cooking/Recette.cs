@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace WPF_Cooking
 {
+    /// <summary>
+    /// Définit une Recette et tous ses attributs.
+    /// </summary>
     public class Recette
     {
         public string Nom { get; set; }

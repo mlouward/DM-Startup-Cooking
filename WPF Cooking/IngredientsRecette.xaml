@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_Cooking"
-        mc:Ignorable="d"
-        Title="IngredientsRecette" Height="450" Width="1000">
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" FontSize="16"
+        Height="450" Width="1000" FontFamily="Raleway" FontWeight="DemiBold" Foreground="#FF151A61">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height=".1*" />
@@ -15,32 +15,32 @@
         <DataGrid x:Name="DGIngredients" Grid.Row="1" Margin="5" CanUserAddRows="False"
                   CanUserSortColumns="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Nom}">
+                <DataGridTextColumn Width="100" Binding="{Binding Nom}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="Nom" />
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="150" Binding="{Binding Quantite}">
+                <DataGridTextColumn Binding="{Binding Quantite}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="Quantité dans la recette" />
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="40" Binding="{Binding Unite}">
+                <DataGridTextColumn Width="50" Binding="{Binding Unite}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="Unité" />
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="80" Binding="{Binding StockActuel}">
+                <DataGridTextColumn Width="70" Binding="{Binding StockActuel}">
                     <DataGridTextColumn.Header>
-                        <TextBlock Text="Stock" />
+                        <TextBlock Text="En stock"/>
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="80" Binding="{Binding StockMin}">
+                <DataGridTextColumn Width="85" Binding="{Binding StockMin}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="Stock Min" />
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="80" Binding="{Binding StockMax}">
+                <DataGridTextColumn Width="85" Binding="{Binding StockMax}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="Stock Max" />
                     </DataGridTextColumn.Header>
@@ -50,7 +50,7 @@
                         <TextBlock Text="Fournisseur" />
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="120" Binding="{Binding DateDerniereCommande, StringFormat=dd/MM/yyyy}">
+                <DataGridTextColumn Binding="{Binding DateDerniereCommande, StringFormat=dd/MM/yyyy}">
                     <DataGridTextColumn.Header>
                         <!--Dernière fois qu'un client a commandé une recette comportant cet ingrédient.-->
                         <TextBlock Text="Dernière Commande" />

@@ -53,6 +53,7 @@ namespace WPF_Cooking
             FormulaireNewRecette f = new FormulaireNewRecette();
             f.Show();
         }
+
         /// <summary>
         /// Permet aux CDR de supprimer une de leur recettes s'ils le veulent.
         /// </summary>
@@ -65,30 +66,30 @@ namespace WPF_Cooking
             {
                 #region Supprime une recette de la BDD (un créateur ne peut supprimer que ses recettes)
 
+                Recette toDelete = (Recette)ListViewRecettes.SelectedItem;
                 string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
                 MySqlConnection connection = new MySqlConnection(connectionString);
-                try
+                var res = MessageBox.Show($"La recette \"{toDelete.Nom}\" va etre supprimée. Cette opération est irréversible.\nÊtes-vous sur de vouloir continuer?",
+                    "Attention", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                if (res == MessageBoxResult.OK)
                 {
-                    Recette toDelete = (Recette)ListViewRecettes.SelectedItem;
-                    var res = MessageBox.Show($"La recette \"{toDelete.Nom}\" va etre supprimée. Cette opération est irréversible.\nÊtes-vous sur de vouloir continuer?",
-                        "Attention", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
-                    if (res == MessageBoxResult.OK)
+                    string requete = $"delete from recette where Nomrecette_recette = \"{toDelete.Nom}\"";
+                    try
                     {
-                        string requete = $"delete from recette where Nomrecette_recette = \"{toDelete.Nom}\"";
                         connection.Open();
                         MySqlCommand cmd = new MySqlCommand(requete, connection);
                         cmd.ExecuteNonQuery();
-                        //On actualise la liste des recettes.
-                        this.Close();
+                        // On actualise la liste des recettes en fermant/rouvrant la fenêtre.
+                        Close();
                         PageCDR pageCDR = new PageCDR();
                         pageCDR.Show();
                     }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    connection.Close();
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                }
-                connection.Close();
 
                 #endregion Supprime une recette de la BDD (un créateur ne peut supprimer que ses recettes)
             }

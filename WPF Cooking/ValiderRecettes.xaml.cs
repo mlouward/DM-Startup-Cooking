@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Media3D;
 
 namespace WPF_Cooking
 {
@@ -43,10 +42,14 @@ namespace WPF_Cooking
             DatagridRecettesAtt.ItemsSource = listeRecettes;
         }
 
+        /// <summary>
+        /// On n'affiche pas les colonnes Ingrédients, Validation et MailCréateur.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DatagridRecettesAtt_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            // On n'affiche pas ces colonnes
-            if (e.Column.Header.ToString() == "Ingredients" || e.Column.Header.ToString() == "Validation" || e.Column.Header.ToString() == "MailCreateur")
+            if (e.Column.Header.ToString() == "Validation" || e.Column.Header.ToString() == "MailCreateur")
             {
                 e.Column.Visibility = Visibility.Hidden;
             }
@@ -56,9 +59,7 @@ namespace WPF_Cooking
         {
             Recette selectionne = (Recette)DatagridRecettesAtt.SelectedItem;
             if (DatagridRecettesAtt.SelectedItem is null)
-            {
                 MessageBox.Show("Sélectionnez une recette à supprimer");
-            }
             else
             {
                 string requete = "";
@@ -72,20 +73,20 @@ namespace WPF_Cooking
                 }
                 string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
                 MySqlConnection connection = new MySqlConnection(connectionString);
-                try
+                if (requete != "")
                 {
-                    if (requete != "")
+                    try
                     {
                         connection.Open();
                         MySqlCommand command = new MySqlCommand(requete, connection);
                         command.ExecuteNonQuery();
                     }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                    connection.Close();
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                connection.Close();
             }
             DatagridRecettesAtt.ItemsSource = null;
             DatagridRecettesAtt.ItemsSource = listeRecettes;
@@ -95,9 +96,7 @@ namespace WPF_Cooking
         {
             Recette selectionne = (Recette)DatagridRecettesAtt.SelectedItem;
             if (DatagridRecettesAtt.SelectedItem is null)
-            {
                 MessageBox.Show("Sélectionnez une recette à valider");
-            }
             else
             {
                 var res = MessageBox.Show($"Vous avez choisi {selectionne.Nom}. Voulez-vous la valider ?",
@@ -105,19 +104,18 @@ namespace WPF_Cooking
                 if (res == MessageBoxResult.OK)
                 {
                     listeRecettes.Remove(selectionne);
+                    FormulaireNewRecette.recettesEnAttente.Remove(selectionne);
 
-                    #region Actualise la valeur de Validation.
+                    #region Actualise la valeur de Validation à 'True' dans la BDD.
 
-                    //Actualise les tables Recette
+                    // Actualise les tables Recette
                     string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
                     MySqlConnection connection = new MySqlConnection(connectionString);
                     try
                     {
                         connection.Open();
-                        MySqlCommand cmd = new MySqlCommand();
-                        cmd.Connection = connection;
+                        MySqlCommand cmd = new MySqlCommand { Connection = connection };
 
-                        //Recette
                         string requete = $"update recette set Validation_Recette = 1 where NomRecette_Recette = \"{selectionne.Nom}\"";
                         cmd.CommandText = requete;
                         cmd.ExecuteNonQuery();

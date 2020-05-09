@@ -3,32 +3,38 @@ using System.Xml.Serialization;
 
 namespace WPF_Cooking
 {
+    /// <summary>
+    /// Classe définissant les produits disponibles pour réaliser les recettes (ingrédients).
+    /// </summary>
     public class Produit
     {
         public string Nom { get; set; }
         public int Quantite { get; set; }
+
+        /// <summary>
+        /// Unité, à choisir entre 'g', 'mL' et ' '
+        /// </summary>
         public string Unite { get; set; }
+
         public int StockActuel { get; set; }
         public int StockMin { get; set; }
         public int StockMax { get; set; }
 
-        [XmlElement("QuantitéACommander")]
+        [XmlElement("QuantitéÀCommander")]
         public int QttACommander { get; set; }
 
         public string NomFournisseur { get; set; }
-
         public int RefFournisseur { get; set; }
 
         [XmlElement(DataType = "date")]
         public DateTime DateDerniereCommande { get; set; }
 
+        public Produit()
+        {
+        }
         public Produit(string nom)
         {
             Nom = nom;
-        }
-
-        public Produit()
-        {
         }
 
         public Produit(string nom, int quantite, string unite) : this(nom)
