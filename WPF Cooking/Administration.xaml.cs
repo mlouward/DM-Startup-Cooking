@@ -40,8 +40,7 @@ namespace WPF_Cooking
             // Retourne le mail du CDR de la semaine, son nom et son nb de recettes commandées dans la derniere semaine.
             string requete = $"select cr.Mail_Client, cl.Nom_Client, sum(nombreplats) as s from commande c join crée cr on cr.Nomrecette_Recette = c.Nomrecette_recette join client cl on cl.Mail_Client = cr.Mail_Client where c.Date_Commande > \'{date}\' group by cr.Mail_Client order by s desc limit 1";
 
-            string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
-            MySqlConnection connection = new MySqlConnection(connectionString);
+            string connectionString = $"SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = {MainWindow.idBdd}; PASSWORD = {MainWindow.mdpBdd}"; MySqlConnection connection = new MySqlConnection(connectionString);
             try
             {
                 connection.Open();
@@ -118,8 +117,7 @@ namespace WPF_Cooking
             {
                 #region Suppression sécurisée de la recette de la BDD
 
-                string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
-                MySqlConnection connection = new MySqlConnection(connectionString);
+                string connectionString = $"SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = {MainWindow.idBdd}; PASSWORD = {MainWindow.mdpBdd}"; MySqlConnection connection = new MySqlConnection(connectionString);
                 // Retourne le nom de la recette sélectionnée.
                 string index = ListViewToutesRecettes.SelectedItem.ToString().Split('(')[0];
                 // On récupère ensuite l'objet Recette.
@@ -165,8 +163,7 @@ namespace WPF_Cooking
             string date = dateVoulue.Year.ToString("0000") + dateVoulue.Month.ToString("00") + dateVoulue.Day.ToString("00")
                         + dateVoulue.Hour.ToString("00") + dateVoulue.Minute.ToString("00") + dateVoulue.Second.ToString("00");
 
-            string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
-            MySqlConnection connection = new MySqlConnection(connectionString);
+            string connectionString = $"SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = {MainWindow.idBdd}; PASSWORD = {MainWindow.mdpBdd}"; MySqlConnection connection = new MySqlConnection(connectionString);
             string requete = $" update produit set StockMinimal_Produit = StockMinimal_Produit / 2, StockMax_Produit = StockMax_Produit / 2 where DateDerniereCommande_Produit < '{date}'";
             string requete2 = $"select * from produit where StockActuel_Produit < StockMinimal_Produit order by NomFournisseur_Produit, NomProduit_Produit;";
             try

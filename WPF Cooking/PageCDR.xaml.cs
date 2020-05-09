@@ -17,8 +17,7 @@ namespace WPF_Cooking
 
             #region Récupère les recettes d'un CDR dans la BDD
 
-            string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
-            MySqlConnection connection = new MySqlConnection(connectionString);
+            string connectionString = $"SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = {MainWindow.idBdd}; PASSWORD = {MainWindow.mdpBdd}"; MySqlConnection connection = new MySqlConnection(connectionString);
             string requete = $"select * from recette natural join crée where Mail_Client = \"{MainWindow.currentUser.Mail}\"";
             try
             {
@@ -67,8 +66,7 @@ namespace WPF_Cooking
                 #region Supprime une recette de la BDD (un créateur ne peut supprimer que ses recettes)
 
                 Recette toDelete = (Recette)ListViewRecettes.SelectedItem;
-                string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
-                MySqlConnection connection = new MySqlConnection(connectionString);
+                string connectionString = $"SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = {MainWindow.idBdd}; PASSWORD = {MainWindow.mdpBdd}"; MySqlConnection connection = new MySqlConnection(connectionString);
                 var res = MessageBox.Show($"La recette \"{toDelete.Nom}\" va etre supprimée. Cette opération est irréversible.\nÊtes-vous sur de vouloir continuer?",
                     "Attention", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
                 if (res == MessageBoxResult.OK)

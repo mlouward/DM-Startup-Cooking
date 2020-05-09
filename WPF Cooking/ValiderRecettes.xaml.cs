@@ -19,8 +19,7 @@ namespace WPF_Cooking
             InitializeComponent();
             DataContext = this;
 
-            string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
-            MySqlConnection connection = new MySqlConnection(connectionString);
+            string connectionString = $"SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = {MainWindow.idBdd}; PASSWORD = {MainWindow.mdpBdd}"; MySqlConnection connection = new MySqlConnection(connectionString);
             try
             {
                 connection.Open();
@@ -71,8 +70,7 @@ namespace WPF_Cooking
                     listeRecettes.Remove(selectionne);
                     FormulaireNewRecette.recettesEnAttente.Remove(selectionne);
                 }
-                string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
-                MySqlConnection connection = new MySqlConnection(connectionString);
+                string connectionString = $"SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = {MainWindow.idBdd}; PASSWORD = {MainWindow.mdpBdd}"; MySqlConnection connection = new MySqlConnection(connectionString);
                 if (requete != "")
                 {
                     try
@@ -109,8 +107,7 @@ namespace WPF_Cooking
                     #region Actualise la valeur de Validation à 'True' dans la BDD.
 
                     // Actualise les tables Recette
-                    string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
-                    MySqlConnection connection = new MySqlConnection(connectionString);
+                    string connectionString = $"SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = {MainWindow.idBdd}; PASSWORD = {MainWindow.mdpBdd}"; MySqlConnection connection = new MySqlConnection(connectionString);
                     try
                     {
                         connection.Open();

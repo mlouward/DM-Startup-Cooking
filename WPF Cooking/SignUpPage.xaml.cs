@@ -24,8 +24,7 @@ namespace WPF_Cooking
         /// <param name="e"></param>
         private void SignUp_Click(object sender, RoutedEventArgs e)
         {
-            string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
-            MySqlConnection connection = new MySqlConnection(connectionString);
+            string connectionString = $"SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = {MainWindow.idBdd}; PASSWORD = {MainWindow.mdpBdd}"; MySqlConnection connection = new MySqlConnection(connectionString);
             string requete = $"select mail_client from client where mail_client=\"{Mail.Text.Trim()}\"";
             try
             {

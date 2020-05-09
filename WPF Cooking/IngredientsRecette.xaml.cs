@@ -21,8 +21,7 @@ namespace WPF_Cooking
             // On récupère la recette séléctionnée dans la fenêtre précédente.
             Recette currentRecette = ValiderRecettes.selectionne;
             Title = $"Ingrédients de {currentRecette.Nom}";
-            string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
-            MySqlConnection connection = new MySqlConnection(connectionString);
+            string connectionString = $"SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = {MainWindow.idBdd}; PASSWORD = {MainWindow.mdpBdd}"; MySqlConnection connection = new MySqlConnection(connectionString);
             string requete = $"select p.*, c.QttProduit_Compose from produit p natural join compose c where c.nomRecette_recette = \"{currentRecette.Nom}\"";
             try
             {
@@ -32,6 +31,7 @@ namespace WPF_Cooking
                 MySqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
+                    MessageBox.Show(rdr.GetDateTime(8).ToString());
                     ingredients.Add(new Produit(rdr.GetString(0), rdr.GetInt32(9), rdr.GetString(2), rdr.GetInt32(3), rdr.GetInt32(4), rdr.GetInt32(7), rdr.GetString(5), rdr.GetDateTime(8)));
                 }
                 DGIngredients.ItemsSource = ingredients;

@@ -48,5 +48,7 @@
                        Margin="50,55,0,0" TextDecorations="Underline"
                        PreviewMouseDown="SignUp_PreviewMouseDown" Cursor="Hand" />
         </Grid>
+        <Button x:Name="Démo" Content="Démo" HorizontalAlignment="Left" Margin="266,0,0,0"
+                VerticalAlignment="Top" Width="76" Click="Démo_Click" />
     </Grid>
 </Window>

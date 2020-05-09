@@ -35,8 +35,7 @@ namespace WPF_Cooking
 
             #region Récupérer les recettes de la BDD
 
-            string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
-            MySqlConnection connection = new MySqlConnection(connectionString);
+            string connectionString = $"SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = {MainWindow.idBdd}; PASSWORD = {MainWindow.mdpBdd}"; MySqlConnection connection = new MySqlConnection(connectionString);
             string requete = "Select * From recette where Validation_Recette = 1"; //N'affiche que les recettes validées.
             try
             {

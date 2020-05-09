@@ -131,6 +131,9 @@
     </Compile>
     <Compile Include="CDR.cs" />
     <Compile Include="CDRSemaine.cs" />
+    <Compile Include="Demo.xaml.cs">
+      <DependentUpon>Demo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FormulaireNewRecette.xaml.cs">
       <DependentUpon>FormulaireNewRecette.xaml</DependentUpon>
     </Compile>
@@ -158,6 +161,10 @@
       <DependentUpon>ValiderRecettes.xaml</DependentUpon>
     </Compile>
     <Page Include="Administration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Demo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

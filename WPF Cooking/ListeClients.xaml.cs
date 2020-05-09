@@ -22,8 +22,7 @@ namespace WPF_Cooking
             InitializeComponent();
             listeClients.Clear();
             string requete = "select * from client";
-            string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
-            MySqlConnection connection = new MySqlConnection(connectionString);
+            string connectionString = $"SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = {MainWindow.idBdd}; PASSWORD = {MainWindow.mdpBdd}"; MySqlConnection connection = new MySqlConnection(connectionString);
             try
             {
                 connection.Open();
@@ -82,8 +81,7 @@ namespace WPF_Cooking
                         requete = $"update client set statut_client = \"client\" where mail_client=\"{selectionne.Mail}\"";
                         selectionne.Statut = "client";
                     }
-                    string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
-                    MySqlConnection connection = new MySqlConnection(connectionString);
+                    string connectionString = $"SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = {MainWindow.idBdd}; PASSWORD = {MainWindow.mdpBdd}"; MySqlConnection connection = new MySqlConnection(connectionString);
                     try
                     {
                         if (requete != "")
@@ -112,8 +110,7 @@ namespace WPF_Cooking
                         requete = $"delete from client where mail_client=\"{selectionne.Mail}\"";
                         listeClients.Remove(selectionne);
                     }
-                    string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
-                    MySqlConnection connection = new MySqlConnection(connectionString);
+                    string connectionString = $"SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = {MainWindow.idBdd}; PASSWORD = {MainWindow.mdpBdd}"; MySqlConnection connection = new MySqlConnection(connectionString);
                     try
                     {
                         if (requete != "")

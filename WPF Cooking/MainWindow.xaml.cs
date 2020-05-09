@@ -11,14 +11,14 @@ namespace WPF_Cooking
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static string idBdd = "root";
+        public static string mdpBdd = "maxime";
+
         public static Client currentUser = new Client();
 
         public MainWindow()
         {
             InitializeComponent();
-            // TODO : remove
-            TextBoxMail.Text = "admin";
-            PasswordBoxMdp.Password = "Maxime";
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -41,7 +41,7 @@ namespace WPF_Cooking
         public void LogIn_Click(object sender, RoutedEventArgs e)
         {
             string mail = TextBoxMail.Text;
-            string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
+            string connectionString = $"SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = {MainWindow.idBdd}; PASSWORD = {MainWindow.mdpBdd}";
 
             string requeteMdp = $"Select mdp_Client, Solde_Client, Statut_client, Nom_Client from client where Mail_Client = \"{mail}\"";
 
@@ -128,6 +128,12 @@ namespace WPF_Cooking
                 MessageBox.Show("La connection avec la BDD a échoué :\n", ex.Message);
             }
             connection.Close();
+        }
+
+        private void Démo_Click(object sender, RoutedEventArgs e)
+        {
+            Demo d = new Demo();
+            d.Show();
         }
     }
 }
