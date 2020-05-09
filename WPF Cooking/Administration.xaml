@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPF_Cooking"
+        xmlns:local="clr-namespace:WPF_Cooking" Closing="Window_Closing"
         mc:Ignorable="d" Title="Administration" WindowStartupLocation="CenterScreen"
         Foreground="#FF151A61" Height="700" Width="1200" Background="White" FontFamily="Raleway"
         FontWeight="DemiBold" Icon="Resources/logo.png" MinWidth="500" MinHeight="300"
@@ -46,7 +46,7 @@
             <Button x:Name="BoutonClients" Grid.Column="1" Content="Voir les clients" Background="#FFFFC61A" Cursor="Hand"
                 BorderBrush="#FFFFC61A" Foreground="White" Width="200" Height="45" Click="BoutonClients_Click" />
             <Button x:Name="BoutonValider" Grid.Column="2" Content="Recettes en attente" Background="#FFFFC61A" Cursor="Hand"
-                BorderBrush="#FFFFC61A" Foreground="White" Width="200" Height="45" Click="BoutonValider_Click" />
+                BorderBrush="#FFFFC61A" Foreground="White" Width="200" Height="45" Click="BoutonValider_Click" IsDefault="True" />
             <Button x:Name="BoutonReapp" Grid.Column="3" Background="#FFFFC61A" Click="BoutonReapp_Click" Cursor="Hand"
                 BorderBrush="#FFFFC61A" Foreground="White" Width="200" Height="45" Content="Réapprovisionnement" />
         </Grid>

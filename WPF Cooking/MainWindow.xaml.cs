@@ -16,8 +16,9 @@ namespace WPF_Cooking
         public MainWindow()
         {
             InitializeComponent();
+            // TODO : remove
             TextBoxMail.Text = "admin";
-            PasswordBoxMdp.Password= "Maxime";
+            PasswordBoxMdp.Password = "Maxime";
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -45,9 +46,6 @@ namespace WPF_Cooking
             string requeteMdp = $"Select mdp_Client, Solde_Client, Statut_client, Nom_Client from client where Mail_Client = \"{mail}\"";
 
             string resultatMdp = "";
-            string resultatStatut = "";
-            string resultatNom = "";
-            int solde = 0;
 
             MySqlConnection connection = new MySqlConnection(connectionString);
             try
@@ -59,10 +57,9 @@ namespace WPF_Cooking
 
                 rdr.Read();
                 resultatMdp = rdr.GetString(0);
-                solde = rdr.GetInt32(1);
-                resultatStatut = rdr.GetString(2).ToLower();
-                resultatNom = rdr.GetString(3);
-
+                int solde = rdr.GetInt32(1);
+                string resultatStatut = rdr.GetString(2).ToLower();
+                string resultatNom = rdr.GetString(3);
                 rdr.Close();
                 // Si nom d'utilisateur pas dans la base de données
                 if (resultatMdp == "") MessageBox.Show($"L'adresse mail '{mail}' n'appartient pas à la base de données. Veuillez créer un compte.");
@@ -82,7 +79,7 @@ namespace WPF_Cooking
                         ListeRecettes listeRecettes = new ListeRecettes();
                         listeRecettes.Show();
                     }
-                    else if (resultatStatut == "cdr")
+                    else if (resultatStatut.ToLower() == "cdr")
                     {
                         currentUser.Mail = TextBoxMail.Text;
                         currentUser.Solde = solde;
@@ -101,7 +98,7 @@ namespace WPF_Cooking
                             pageCdr.Show();
                         }
                     }
-                    else if (resultatStatut == "admin")
+                    else if (resultatStatut.ToLower() == "admin")
                     {
                         currentUser.Mail = TextBoxMail.Text;
                         currentUser.Solde = solde;
@@ -122,13 +119,13 @@ namespace WPF_Cooking
                     }
                     else
                     {
-                        MessageBox.Show($"Le statut \"{resultatStatut}\" n'est pas reconnu.");
+                        MessageBox.Show($"Le statut \"{resultatStatut}\" n'est pas reconnu. Veuillez contacter l\'administration.");
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("La connection avec la BDD a échoué.");
+                MessageBox.Show("La connection avec la BDD a échoué :\n", ex.Message);
             }
             connection.Close();
         }

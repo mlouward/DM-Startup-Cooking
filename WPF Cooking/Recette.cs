@@ -13,7 +13,6 @@ namespace WPF_Cooking
         public int Remuneration { get; set; }
         public bool Validation { get; set; }
         public string MailCreateur { get; set; }
-        public List<Produit> Ingredients { get; set; }
 
         public Recette(string nom, string type, string descriptif, decimal prixVente, int popularite)
         {

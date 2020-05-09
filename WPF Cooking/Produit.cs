@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Serialization;
 
 namespace WPF_Cooking
 {
@@ -10,12 +11,24 @@ namespace WPF_Cooking
         public int StockActuel { get; set; }
         public int StockMin { get; set; }
         public int StockMax { get; set; }
+
+        [XmlElement("QuantitéACommander")]
+        public int QttACommander { get; set; }
+
         public string NomFournisseur { get; set; }
+
+        public int RefFournisseur { get; set; }
+
+        [XmlElement(DataType = "date")]
         public DateTime DateDerniereCommande { get; set; }
 
         public Produit(string nom)
         {
             Nom = nom;
+        }
+
+        public Produit()
+        {
         }
 
         public Produit(string nom, int quantite, string unite) : this(nom)
@@ -31,11 +44,19 @@ namespace WPF_Cooking
             StockMax = stockMax;
             StockMin = stockMin;
             NomFournisseur = nomFournisseur;
-            //DateTime date = new DateTime(
-                //int.Parse(dateDerniereCommande.Substring(0, 4)), //Année
-                //int.Parse(dateDerniereCommande.Substring(4, 2)), // Mois
-                //int.Parse(dateDerniereCommande.Substring(6, 2))); // Jour
             DateDerniereCommande = dateDerniereCommande;
+        }
+
+        public Produit(string nom, string unite, int stockActuel, int stockMin, int stockMax, string nomFournisseur, DateTime dateDerniereCommande, int refFournisseur)
+        {
+            Nom = nom;
+            Unite = unite;
+            StockActuel = stockActuel;
+            StockMin = stockMin;
+            StockMax = stockMax;
+            NomFournisseur = nomFournisseur;
+            DateDerniereCommande = dateDerniereCommande;
+            RefFournisseur = refFournisseur;
         }
 
         public override string ToString()

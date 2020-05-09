@@ -6,22 +6,33 @@ using System.Windows;
 namespace WPF_Cooking
 {
     /// <summary>
-    /// Logique d'interaction pour ListeRecettes.xaml
+    /// Fenêtre de commande (portail client) des recettes validées.
     /// </summary>
 
     public partial class ListeRecettes : Window
     {
+        /// <summary>
+        /// Stocke les recettes du panier et leur nombre.
+        /// </summary>
         public static Dictionary<Recette, int> compteRecettes = new Dictionary<Recette, int>();
+
+        /// <summary>
+        /// Liste des recettes du panier
+        /// </summary>
         private static List<Recette> listeRecettes = new List<Recette>();
+
+        /// <summary>
+        /// Stocke les noms des recettes du panier et leur nombre (utilisé dans le récap)
+        /// </summary>
         private static Dictionary<string, int> recettesNoms = new Dictionary<string, int>();
 
         public ListeRecettes()
         {
             InitializeComponent();
-            recettesNoms.Clear(); //Remet le panier à 0.
-            compteRecettes.Clear(); //Remet le compte des recettes à 0.
+            recettesNoms.Clear(); // Remet le panier à 0.
+            compteRecettes.Clear(); // Remet le compte des recettes à 0.
             List<Recette> recettes = new List<Recette>();
-
+            
             #region Récupérer les recettes de la BDD
 
             string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
@@ -36,7 +47,6 @@ namespace WPF_Cooking
 
                 while (rdr.Read())
                 {
-                    //Liste pour y accéder en tant qu'objets.
                     recettes.Add(new Recette(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetDecimal(3), rdr.GetInt32(4)));
                 }
                 rdr.Close();
@@ -53,6 +63,11 @@ namespace WPF_Cooking
             lvRecettes.ItemsSource = recettes;
         }
 
+        /// <summary>
+        /// Permet d'ajouter une ou plusieurs (ctrl+click) recette(s) au panier, et actualise le prix total.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BoutonAjout_Click(object sender, RoutedEventArgs e)
         {
             foreach (Recette recette in lvRecettes.SelectedItems)
@@ -80,6 +95,7 @@ namespace WPF_Cooking
                 MessageBox.Show("Veuillez sélectionner un produit à retirer du panier.");
             else
             {
+                // Nom de la recette à supprimer/mettre à jour du panier.
                 string index = lvRecap.SelectedItem.ToString().Split(',')[0].Substring(1);
                 Recette r = listeRecettes.Find(x => x.Nom == index);
                 textePrix.Text = Convert.ToString(decimal.Parse(textePrix.Text) - r.PrixVente);
@@ -111,7 +127,7 @@ namespace WPF_Cooking
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //Déconnecte l'utilisateur
+            // Déconnecte l'utilisateur
             MainWindow.currentUser = new Client();
         }
     }

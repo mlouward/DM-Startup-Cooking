@@ -11,6 +11,9 @@ namespace WPF_Cooking
     /// </summary>
     public partial class FormulaireNewRecette : Window
     {
+        /// <summary>
+        /// Liste des recettes en attente de validation.
+        /// </summary>
         public static List<Recette> recettesEnAttente = new List<Recette>();
 
         public FormulaireNewRecette()
@@ -20,9 +23,10 @@ namespace WPF_Cooking
 
         private void BoutonValiderRecette_Click(object sender, RoutedEventArgs e)
         {
+            // Le cdr doit rentrer au moins un nom et un prix (decimal) pour que la recette soit soumise.
             if (TextBoxNomRecette.Text == "" || TextBoxPrixRecette.Text == "" || !decimal.TryParse(TextBoxPrixRecette.Text, out decimal prix))
             {
-                MessageBox.Show("Veuillez rentrer un nom et un prix (valide) pour la recette!");
+                MessageBox.Show("Veuillez saisir un nom et un prix (valide) pour la recette!");
             }
             else
             {
@@ -38,59 +42,6 @@ namespace WPF_Cooking
 
                 MessageBox.Show("Merci de votre proposition! Votre recette sera évaluée par Cooking." +
                     "\nSi elle est validée, vous pourrez la voir dans la liste des recettes disponibles très bientôt!");
-
-                #region TEMPORAIRE (test ajout recette). Cette région ira dans le portail admin.
-
-                string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
-                MySqlConnection connection = new MySqlConnection(connectionString);
-                //Actualise les tables Recette et Compose
-                try
-                {
-                    connection.Open();
-                    var cmd = new MySqlCommand();
-                    cmd.Connection = connection;
-
-                    //les Ingrédients sont ajoutés à la table des ingrédients s'ils n'y existaient pas.
-                    List<string> produitsDispos = new List<string>(); //Liste des produits dans la bdd
-                    cmd.CommandText = "select NomProduit_Produit from produit";
-                    MySqlDataReader rdr = cmd.ExecuteReader();
-                    while (rdr.Read())
-                    {
-                        produitsDispos.Add(rdr.GetString(0));
-                    }
-                    rdr.Close();
-                    foreach (Produit item in ingredients)
-                    {
-                        if (!produitsDispos.Contains(item.Nom))
-                        {
-                            cmd.CommandText = $"insert into produit (NomProduit_Produit) values (\"{item.Nom}\")";
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
-
-                    //Recette
-                    string requete = $"insert into recette values (\"{recette.Nom}\", \"{recette.Type}\", \"{recette.Descriptif}\", \"{recette.PrixVente.ToString(new CultureInfo("en-US"))}\", {recette.Popularite}, \"{0}\")";
-                    cmd.CommandText = requete;
-                    cmd.ExecuteNonQuery();
-
-                    //Compose
-                    foreach (Produit item in ingredients)
-                    {
-                        cmd.CommandText = $"insert into compose values (\"{recette.Nom}\", \"{item.Nom}\", {item.Quantite}, \"{item.Unite}\")";
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    //Crée
-                    cmd.CommandText = $"insert into crée values(\"{MainWindow.currentUser.Mail}\", \"{recette.Nom}\")";
-                    cmd.ExecuteNonQuery();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                connection.Close();
-
-                #endregion TEMPORAIRE (test ajout recette). Cette région ira dans le portail admin.
 
                 Close();
             }

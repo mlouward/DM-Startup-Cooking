@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_Cooking"
         mc:Ignorable="d"
-        Title="IngredientsRecette" Height="450" Width="1000" >
+        Title="IngredientsRecette" Height="450" Width="1000">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height=".1*" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        <TextBlock x:Name="TextNomRecette" Margin="0, 0, 0, 5"/>
+        <TextBlock x:Name="TextNomRecette" Margin="0, 0, 0, 5" />
         <DataGrid x:Name="DGIngredients" Grid.Row="1" Margin="5" CanUserAddRows="False"
                   CanUserSortColumns="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
@@ -50,8 +50,9 @@
                         <TextBlock Text="Fournisseur" />
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
-                <DataGridTextColumn Width="120" Binding="{Binding DateDerniereCommande}">
+                <DataGridTextColumn Width="120" Binding="{Binding DateDerniereCommande, StringFormat=dd/MM/yyyy}">
                     <DataGridTextColumn.Header>
+                        <!--Dernière fois qu'un client a commandé une recette comportant cet ingrédient.-->
                         <TextBlock Text="Dernière Commande" />
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>

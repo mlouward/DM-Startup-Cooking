@@ -2,32 +2,32 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace WPF_Cooking
 {
     /// <summary>
-    /// Logique d'interaction pour IngredientsRecette.xaml
+    /// Fenêtre montrant les ingrédients de la recette en attente sélectionnée.
     /// </summary>
     public partial class IngredientsRecette : Window
     {
-        public static List<Produit> ingredients { get; set; }
+        /// <summary>
+        /// Liste des ingrédients de la recette sélectionnée.
+        /// </summary>
+        private List<Produit> ingredients = new List<Produit>();
+
         public IngredientsRecette()
         {
             InitializeComponent();
-            ingredients = new List<Produit>();
+            // On récupère la recette séléctionnée dans la fenêtre précédente.
             Recette currentRecette = ValiderRecettes.selectionne;
             string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
             MySqlConnection connection = new MySqlConnection(connectionString);
+            string requete = $"select p.*, c.QttProduit_Compose from produit p natural join compose c where c.nomRecette_recette = \"{currentRecette.Nom}\"";
             try
             {
                 connection.Open();
-                MySqlCommand cmd = new MySqlCommand();
-                cmd.Connection = connection;
+                MySqlCommand cmd = new MySqlCommand(requete, connection);
 
-                //Recette
-                string requete = $"select p.*, c.QttProduit_Compose from produit p natural join compose c where c.nomRecette_recette = \"{currentRecette.Nom}\"";
-                cmd.CommandText = requete;
                 MySqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
@@ -38,7 +38,6 @@ namespace WPF_Cooking
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                throw;
             }
             connection.Close();
         }

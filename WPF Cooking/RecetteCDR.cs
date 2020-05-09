@@ -2,8 +2,17 @@
 
 namespace WPF_Cooking
 {
+    /// <summary>
+    /// Recette avec une liste d'ingrédients soumise par un CDR.
+    /// </summary>
     public class RecetteCDR : Recette
     {
+        public List<Produit> Ingredients { get; set; }
+
+        public RecetteCDR(string nom, string type, string descriptif, decimal prixVente, int popularite) : base(nom, type, descriptif, prixVente, popularite)
+        {
+        }
+
         public RecetteCDR(string nom, string type, string descriptif, decimal prixVente, int popularite, string mailCreateur)
             : base(nom, type, descriptif, prixVente, popularite, mailCreateur)
         {
@@ -28,24 +37,10 @@ namespace WPF_Cooking
             Validation = v;
         }
 
-        public RecetteCDR(string nom, string type, string descriptif, decimal prixVente, int popularite) : base(nom, type, descriptif, prixVente, popularite)
-        {
-        }
-
         public override string ToString()
         {
             string val = Validation ? "Validée" : "En attente";
             return base.ToString() + $", commandée {Popularite} fois ({val})";
-        }
-
-        public string AfficherIngrédients()
-        {
-            string s = "";
-            foreach (Produit item in Ingredients)
-            {
-                s += item.ToString() + "\n";
-            }
-            return s;
         }
     }
 }

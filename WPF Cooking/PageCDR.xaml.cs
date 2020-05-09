@@ -6,7 +6,7 @@ using System.Windows;
 namespace WPF_Cooking
 {
     /// <summary>
-    /// Logique d'interaction pour PageCDR.xaml
+    /// Page des CDR : liste de eur recettes et statut (En attente ou Validée), et outil de création de Recette.
     /// </summary>
     public partial class PageCDR : Window
     {
@@ -19,9 +19,9 @@ namespace WPF_Cooking
 
             string connectionString = "SERVER = localhost; PORT = 3306; DATABASE = cooking; UID = root; PASSWORD = maxime";
             MySqlConnection connection = new MySqlConnection(connectionString);
+            string requete = $"select * from recette natural join crée where Mail_Client = \"{MainWindow.currentUser.Mail}\"";
             try
             {
-                string requete = $"select * from recette natural join crée where Mail_Client = \"{MainWindow.currentUser.Mail}\"";
                 connection.Open();
 
                 MySqlCommand cmd = new MySqlCommand(requete, connection);
@@ -29,14 +29,13 @@ namespace WPF_Cooking
 
                 while (rdr.Read())
                 {
-                    //Liste pour y accéder en tant qu'objets.
                     recettes.Add(new RecetteCDR(rdr.GetString(0), rdr.GetString(1), rdr.GetString(2), rdr.GetDecimal(3), rdr.GetInt32(4), rdr.GetString(6), rdr.GetBoolean(5)));
                 }
                 rdr.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
             connection.Close();
 
@@ -49,12 +48,16 @@ namespace WPF_Cooking
 
         private void BoutonAjoutRecette_Click(object sender, RoutedEventArgs e)
         {
-            //Ouvrir une page avec un formulaire de création de recette (Comment faire pour les ingrédients sans
-            //savoir leur nombre à l'avance?)
-            FormulaireNewRecette p = new FormulaireNewRecette();
-            p.Show();
+            // Ouvre une page avec un formulaire de création de recette (Comment faire pour les ingrédients sans
+            // savoir leur nombre à l'avance ?)
+            FormulaireNewRecette f = new FormulaireNewRecette();
+            f.Show();
         }
-
+        /// <summary>
+        /// Permet aux CDR de supprimer une de leur recettes s'ils le veulent.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BoutonSupprRecette_Click(object sender, RoutedEventArgs e)
         {
             if (ListViewRecettes.SelectedItem is null) MessageBox.Show("Aucune recette à supprimer n'a été sélectionnée!");

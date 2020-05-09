@@ -7,11 +7,15 @@ using System.Windows.Controls;
 namespace WPF_Cooking
 {
     /// <summary>
-    /// Interaction logic for ListeClients.xaml
+    /// Liste de tous les clients de Cooking, leurs infos et statut.
+    /// Permet de supprimer des clients, et de passer des CDR en clients simples.
     /// </summary>
     public partial class ListeClients : Window
     {
-        private static List<Client> listeClients = new List<Client>();
+        /// <summary>
+        /// Stocke les clients.
+        /// </summary>
+        static List<Client> listeClients = new List<Client>();
 
         public ListeClients()
         {
@@ -36,7 +40,11 @@ namespace WPF_Cooking
                 MessageBox.Show(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Retire la colonne des mots de passe et rend la colonne Statut plus petite.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DataGridListeClients_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if (e.Column.Header.ToString() == "Password")
@@ -90,6 +98,10 @@ namespace WPF_Cooking
                     }
                     connection.Close();
                 }
+                else if (selectionne.Mail == MainWindow.currentUser.Mail)
+                {
+                    MessageBox.Show("Vous ne pouvez pas vous supprimer vous-même!");
+                }
                 else
                 {
                     var res = MessageBox.Show($"Vous avez choisi {selectionne.Nom} (client). Voulez-vous le supprimer définitivement?",
@@ -117,6 +129,7 @@ namespace WPF_Cooking
                     connection.Close();
                 }
             }
+            // Actualise la liste des clients après une eventuelle suppression.
             DataGridListeClients.ItemsSource = null;
             DataGridListeClients.ItemsSource = listeClients;
         }
